@@ -1,0 +1,81 @@
+[tools]
+go = "1.24"
+java = "temurin-21"
+
+[tasks.build-api]
+description = "Compila e empacota a API Quarkus"
+dir = "api"
+run = "sh ./mvnw -B -DskipTests package"
+run_windows = "mvnw.cmd -B -DskipTests package"
+
+[tasks.build-go]
+description = "Compila os serviços Go"
+dir = "services"
+run = "go build -o build/service ./cmd/service"
+
+[tasks.build]
+description = "Compila todos os serviços"
+depends = ["build-api", "build-go"]
+
+[tasks.test-api]
+description = "Executa os testes da API Quarkus"
+dir = "api"
+run = "sh ./mvnw -B test"
+run_windows = "mvnw.cmd -B test"
+
+[tasks.test-go]
+description = "Executa os testes dos serviços Go"
+dir = "services"
+run = "go test ./..."
+
+[tasks.test]
+description = "Executa todos os testes"
+depends = ["test-api", "test-go"]
+
+[tasks.lint-api]
+description = "Valida o projeto Maven"
+dir = "api"
+run = "sh ./mvnw -B validate"
+run_windows = "mvnw.cmd -B validate"
+
+[tasks.lint-go]
+description = "Executa verificações estáticas do Go"
+dir = "services"
+run = "go vet ./..."
+
+[tasks.lint]
+description = "Executa as verificações estáticas"
+depends = ["lint-api", "lint-go"]
+
+[tasks.up]
+description = "Inicia o PostgreSQL local"
+run = "docker compose up -d --wait"
+
+[tasks.down]
+description = "Encerra o ambiente local"
+run = "docker compose down"
+
+[tasks.dev]
+description = "Inicia a API usando o PostgreSQL local"
+dir = "api"
+run = "sh ./mvnw quarkus:dev"
+run_windows = "mvnw.cmd quarkus:dev"
+
+[tasks.ci]
+description = "Reproduz o pipeline de integração contínua"
+run = [
+  "sh ./api/mvnw -f api/pom.xml -B -DskipTests package",
+  "go -C services build -o build/service ./cmd/service",
+  "sh ./api/mvnw -f api/pom.xml -B test",
+  "go -C services test ./...",
+  "sh ./api/mvnw -f api/pom.xml -B validate",
+  "go -C services vet ./...",
+]
+run_windows = [
+  '.\api\mvnw.cmd -f api\pom.xml -B -DskipTests package',
+  "go -C services build -o build/service ./cmd/service",
+  '.\api\mvnw.cmd -f api\pom.xml -B test',
+  "go -C services test ./...",
+  '.\api\mvnw.cmd -f api\pom.xml -B validate',
+  "go -C services vet ./...",
+]
