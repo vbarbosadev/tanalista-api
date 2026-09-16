@@ -30,9 +30,9 @@ docs/       Proposta e documentação do projeto
 ```
 
 O serviço Quarkus é responsável pelo domínio, persistência, autenticação, autorização e
-orquestração dos casos de uso. A responsabilidade específica do primeiro serviço Go será
-definida antes da Sprint 2 e deverá justificar o uso de concorrência, I/O intensivo,
-processamento em lote ou cache.
+orquestração dos casos de uso. O primeiro serviço Go, `barcode-lookup-service`, consulta
+fontes externas por código de barras e normaliza metadados usando concorrência, timeout e
+cancelamento. A comunicação interna será feita por gRPC a partir da Sprint 2.
 
 ## Pré-requisitos
 

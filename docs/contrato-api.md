@@ -35,6 +35,7 @@ implementado deverá manter compatibilidade com estas operações ou registrar a
 | `PUT` | `/compras/{compraId}/registros/{itemId}` | Marca ou atualiza um item comprado | `200` |
 | `DELETE` | `/compras/{compraId}/registros/{itemId}` | Desmarca um item | `204` |
 | `PATCH` | `/compras/{compraId}` | Finaliza a Compra | `200` |
+| `GET` | `/codigos-barras/{codigo}` | Consulta metadados externos de um produto | `200` |
 
 ## Estruturas principais
 
@@ -79,6 +80,34 @@ implementado deverá manter compatibilidade com estas operações ou registrar a
 
 A resposta inclui `subtotal` e o `total` atualizado da Compra.
 
+### Consultar código de barras
+
+```json
+{
+  "codigo": "7891000100103",
+  "nome": "Leite integral",
+  "marca": "Exemplo",
+  "categoria": "ALIMENTOS",
+  "unidade": "UNIDADE",
+  "fonte": "open-food-facts"
+}
+```
+
+A consulta não cria um Item automaticamente. O aplicativo permite revisar os metadados
+e envia a criação do Item ao Quarkus pela operação de lista correspondente.
+
+## Contrato interno com Go
+
+O Quarkus chama o `barcode-lookup-service` por gRPC usando uma operação unária:
+
+```text
+LookupProduct(BarcodeRequest) returns (ProductMetadata)
+```
+
+`BarcodeRequest` contém o código EAN/UPC. `ProductMetadata` contém código, nome, marca,
+categoria, unidade e fonte. A chamada sempre possui deadline. O Go diferencia código
+inválido, produto não encontrado, indisponibilidade do provedor e deadline excedido.
+
 ## Erros
 
 ```json
@@ -96,8 +125,9 @@ A resposta inclui `subtotal` e o `total` atualizado da Compra.
 | `400` | JSON inválido ou parâmetro malformado |
 | `401` | Credencial ausente ou inválida |
 | `403` | Usuário autenticado sem permissão sobre o recurso |
-| `404` | Recurso inexistente ou não visível ao usuário |
+| `404` | Recurso não visível ou código sem produto encontrado nas fontes externas |
 | `409` | Nome normalizado duplicado, Compra já aberta ou conflito de versão |
+| `503` | Todos os provedores externos de código de barras estão indisponíveis |
 | `422` | Entrada sintaticamente válida que viola uma regra de domínio |
 
 ## Idempotência e concorrência
