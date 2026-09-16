@@ -15,6 +15,7 @@
 | RF-09 | P2 | Compartilhar lista com outra conta usando papel de editor | RF-01 e contas |
 | RF-10 | P1 | Processar reenvios offline sem duplicar efeitos | Operações de escrita |
 | RF-11 | P2 | Consultar compras finalizadas por lista | RF-08 |
+| RF-12 | P1 | Consultar metadados externos de produto por código de barras | Serviço Go e fonte externa |
 
 As histórias correspondentes estão no
 [GitHub Project do backend](https://github.com/users/vbarbosadev/projects/3). Os recursos
@@ -39,6 +40,6 @@ HTTP planejados são detalhados em [`contrato-api.md`](contrato-api.md).
 
 - Serviço principal em Java 21 com Quarkus.
 - PostgreSQL como banco relacional.
-- Serviço auxiliar obrigatório em Go, com responsabilidade específica ainda em definição.
+- Serviço Go consulta e normaliza metadados externos por código de barras, sem catálogo próprio.
 - Comunicação entre serviços por gRPC e Protocol Buffers a partir da Sprint 2.
 - Android é o cliente prioritário; o backend não depende da plataforma do cliente.

@@ -11,7 +11,7 @@ run_windows = "mvnw.cmd -B -DskipTests package"
 [tasks.build-go]
 description = "Compila os serviços Go"
 dir = "services"
-run = "go build -o build/service ./cmd/service"
+run = "go build -o build/barcode-lookup ./cmd/barcode-lookup"
 
 [tasks.build]
 description = "Compila todos os serviços"
@@ -65,7 +65,7 @@ run_windows = "mvnw.cmd quarkus:dev"
 description = "Reproduz o pipeline de integração contínua"
 run = [
   "sh ./api/mvnw -f api/pom.xml -B -DskipTests package",
-  "go -C services build -o build/service ./cmd/service",
+  "go -C services build -o build/barcode-lookup ./cmd/barcode-lookup",
   "sh ./api/mvnw -f api/pom.xml -B test",
   "go -C services test ./...",
   "sh ./api/mvnw -f api/pom.xml -B validate",
@@ -73,7 +73,7 @@ run = [
 ]
 run_windows = [
   '.\api\mvnw.cmd -f api\pom.xml -B -DskipTests package',
-  "go -C services build -o build/service ./cmd/service",
+  "go -C services build -o build/barcode-lookup ./cmd/barcode-lookup",
   '.\api\mvnw.cmd -f api\pom.xml -B test',
   "go -C services test ./...",
   '.\api\mvnw.cmd -f api\pom.xml -B validate',
