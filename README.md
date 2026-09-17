@@ -4,6 +4,9 @@ Backend do **TáNaLista**, aplicativo colaborativo de listas de compras com Modo
 A API concentra as regras de negócio, a persistência, o compartilhamento e a
 sincronização dos dados usados pelo aplicativo.
 
+## Videos
+- **Sprint - 0:** [video](https://drive.google.com/file/d/1sXf73865ZDiTYRcJEdk8gAgYPKOgH0KS/view?usp=sharing)
+
 ## Disciplinas
 
 - **DIM0547 - Desenvolvimento de Sistemas Web II:** backend, contratos e infraestrutura.
