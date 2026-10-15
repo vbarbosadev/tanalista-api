@@ -2,18 +2,34 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: tanalista
-      POSTGRES_USER: tanalista
-      POSTGRES_PASSWORD: tanalista_pass
+      POSTGRES_DB: ${DB_NAME:?Copie .env.example para .env}
+      POSTGRES_USER: ${DB_USER:?Defina DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tanalista -d tanalista"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
       timeout: 5s
       retries: 10
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: api
+      dockerfile: src/main/docker/Dockerfile.jvm
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DEV_IDENTITY_ENABLED: ${DEV_IDENTITY_ENABLED:-false}
+      DEV_USER_ID: ${DEV_USER_ID:-00000000-0000-0000-0000-000000000001}
+    ports:
+      - "127.0.0.1:8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:
