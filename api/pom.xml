@@ -56,12 +56,6 @@
             <artifactId>quarkus-flyway</artifactId>
         </dependency>
 
-        <!-- Flyway SQL Server specific dependencies -->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-sqlserver</artifactId>
-        </dependency>
-
         <!-- Flyway PostgreSQL specific dependencies -->
         <dependency>
             <groupId>org.flywaydb</groupId>
