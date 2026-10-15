@@ -48,4 +48,14 @@ public class Itens {
         repositorio.remover(id);
         listasRepo.tocar(listaId, relogio.instant());
     }
+
+    public Pagina<Item> listar(UUID donoId, UUID listaId, int page, int size, String nome, String categoria) {
+        listas.buscar(donoId, listaId);
+        Pagina.validar(page, size);
+        if (nome != null && nome.length() > 120) throw ErroDominio.invalido("Filtro nome deve ter até 120 caracteres.");
+        if (categoria != null && (categoria.isBlank() || categoria.length() > 60)) {
+            throw ErroDominio.invalido("Filtro categoria deve conter de 1 a 60 caracteres.");
+        }
+        return repositorio.listar(listaId, page, size, nome, categoria == null ? null : categoria.strip());
+    }
 }
