@@ -69,6 +69,10 @@ produção pública. Autenticação real será uma entrega posterior.
 
 Para reproduzir a CI: `mise run ci` (Java e Go; testes existentes preservados).
 
+Swagger UI: <http://localhost:8081/q/swagger-ui/>. OpenAPI gerado do código:
+<http://localhost:8081/q/openapi> (JSON com `?format=json`). Inclui os dois CRUDs,
+paginação, filtros, UUIDs, respostas de sucesso e erros em Problem Details.
+
 ## Fluxo de branches
 
 ```text

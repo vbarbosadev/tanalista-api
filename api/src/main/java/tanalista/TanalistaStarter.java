@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 public class TanalistaStarter {
 
     @GET
+    @org.eclipse.microprofile.openapi.annotations.Operation(hidden = true)
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "Hello from Quarkus REST";
