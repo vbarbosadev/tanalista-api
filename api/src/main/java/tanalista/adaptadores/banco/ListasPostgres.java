@@ -11,16 +11,22 @@ import java.util.UUID;
 public class ListasPostgres implements ListaRepository, PanacheRepositoryBase<ListaJpa, UUID> {
     @Override
     public Lista salvar(Lista lista) {
-        var entidade = findById(lista.id());
-        if (entidade == null) {
-            entidade = new ListaJpa();
-            entidade.preencher(lista);
-            persist(entidade);
-        } else {
-            entidade.preencher(lista);
+        if (count("donoId = ?1 and nomeNormalizado = ?2 and id <> ?3",
+                lista.donoId(), lista.nomeNormalizado(), lista.id()) > 0) throw ErroDominio.duplicado();
+        try {
+            var entidade = findById(lista.id());
+            if (entidade == null) {
+                entidade = new ListaJpa();
+                entidade.preencher(lista);
+                persist(entidade);
+            } else {
+                entidade.preencher(lista);
+            }
+            flush();
+            return entidade.dominio();
+        } catch (RuntimeException erro) {
+            throw ConflitosPostgres.traduzir(erro);
         }
-        flush();
-        return entidade.dominio();
     }
 
     @Override
