@@ -74,6 +74,7 @@ run = [
   "sh ./api/mvnw -f api/pom.xml -B validate",
   "go -C services vet ./...",
 ]
+
 run_windows = [
   '.\api\mvnw.cmd -f api\pom.xml -B -DskipTests package',
   "go -C services build -o build/barcode-lookup ./cmd/barcode-lookup",
@@ -82,3 +83,7 @@ run_windows = [
   '.\api\mvnw.cmd -f api\pom.xml -B validate',
   "go -C services vet ./...",
 ]
+
+[tasks.smoke]
+description = "Valida CRUD HTTP com Node 22+ e API ja iniciada"
+run = "node scripts/smoke-sprint1.mjs"
