@@ -4,7 +4,7 @@ Lista por dono e Item por lista usam `Nomes.normalizar` antes de persistir:
 decomposição Unicode NFD, remoção de marcas de acento, espaços Unicode repetidos
 reduzidos a um, remoção de espaços nas pontas e caixa baixa com `Locale.ROOT`.
 
-`  CAFÉ   com Leite ` e `cafe com leite` conflitam; `Leite 200g` e `Leite 400g`
+`"  CAFÉ   com Leite "` e `"cafe com leite"` conflitam; `Leite 200g` e `Leite 400g`
 permanecem distintos. A normalização não tenta inferir unidades ou produtos.
 
 Os adaptadores verificam conflitos antes da escrita, sem substituir a restrição
