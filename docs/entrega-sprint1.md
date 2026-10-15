@@ -91,7 +91,22 @@ agora usa o nome da restrição nos metadados do protocolo do driver.
 - Não apresentar Produto legado como CRUD entregue, identidade temporária como
   autenticação, nem compras/progresso/compartilhamento como implementados.
 
-## Integração e participação — pendências humanas
+## Integração e participação — registro individual
+
+**Atualização de 15/10:** o responsável informou não contar com outro integrante
+e autorizou expressamente os merges após checks verdes, sem revisão externa.
+Não houve aprovação de terceiros e não se presume dispensa da rubrica pelo
+professor. Os PRs #37–#50 estão integrados em `develop`; o PR #51 trouxe os
+merges #38/#39 que haviam entrado em bases intermediárias. Nenhum histórico foi
+descartado e nenhuma branch foi apagada.
+
+O fechamento técnico de #35 será feito após release e CI de `main`; isso não
+significa vídeo entregue. #36 permanece aberta até a publicação do link real.
+Depois da gravação, incluir o link em nova release e atualizar o hash final
+na #35 e no canal da disciplina. O roteiro individual está em
+[video-sprint1.md](video-sprint1.md).
+
+### Procedimento original de integração e critérios da rubrica
 
 Os PRs são empilhados, cada um com commit e push de uma issue. Revisar e integrar
 na ordem: domínio → arquitetura → persistência → criar listas → consultar listas
@@ -104,11 +119,11 @@ cadeia e facilita a revisão incremental. Não fazer force-push nem apagar bases
 enquanto existirem PRs dependentes. As issues só vão para Done após revisão e
 integração; autoria automatizada não vale como participação de outro integrante.
 
-- [ ] Outro integrante revisou os PRs; verificar comentários/aprovações reais.
-- [ ] Cada integrante possui ao menos um PR próprio integrado nesta sprint.
-- [ ] PRs integrados em `develop`, com CI verde e cartões vinculados.
-- [ ] Vídeo da Sprint 1 gravado por todos, acessível e linkado no README (#36).
-- [ ] PR de release `develop` → `main` revisado e integrado (#35).
+- Revisão por outro integrante: **não realizada; entrega individual**.
+- Participação distribuída: **não comprovada; não simular autoria**.
+- [x] PRs integrados em `develop`, com checks verdes e cartões vinculados.
+- [ ] Vídeo individual gravado, acessível e linkado no README (#36).
+- [ ] Release técnica `develop` → `main` integrada, sem revisão externa (#35).
 - [ ] CI verde no commit de `main`; registrar hash e URL do workflow em #35.
 
 Na inspeção inicial, `main` tinha um merge commit exclusivo e `develop` três
