@@ -1,6 +1,7 @@
 package tanalista.adaptadores.http;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import tanalista.aplicacao.Itens;
@@ -24,7 +25,7 @@ public class ItemResource {
 
     @POST
     @Transactional
-    public Response criar(@PathParam("listaId") UUID listaId, ItemRequest request, @Context UriInfo uri) {
+    public Response criar(@PathParam("listaId") UUID listaId, @Valid ItemRequest request, @Context UriInfo uri) {
         if (request == null) throw ErroDominio.invalido("Corpo JSON obrigatório.");
         var item = itens.criar(identidade.usuarioId(), listaId, request.dados());
         return Response.created(uri.getAbsolutePathBuilder().path(item.id().toString()).build()).entity(item).build();
