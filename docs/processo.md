@@ -48,6 +48,13 @@ Validar os critérios com o roteiro de [entrega](entrega-sprint1.md), sem declar
 que o smoke substitui a suíte prevista para Sprint 2. Revisão por outro integrante
 e integração continuam obrigatórias; não marcar Done somente por ter commit/push.
 
+**Situação individual registrada na Sprint 1:** o responsável informou não ter
+outro integrante e autorizou merges após checks verdes, sem revisão externa.
+As issues técnicas podem ser encerradas com implementação, CI e integração
+comprovadas, registrando explicitamente essa ausência. Não se presume dispensa
+da rubrica acadêmica nem se simula aprovação, autoria ou participação alheia.
+Vídeo e publicação continuam com issue própria até haver evidência real.
+
 ## Gestão do backlog
 
 O [GitHub Project](https://github.com/users/vbarbosadev/projects/3) é a fonte do backlog.

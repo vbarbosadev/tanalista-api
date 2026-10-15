@@ -1,54 +1,147 @@
-# Roteiro do vídeo — Sprint 1 (5 minutos)
+# Roteiro individual do vídeo — Sprint 1 (5 minutos)
 
-**Estado: roteiro preparado; vídeo ainda não gravado/publicado.** A issue #36
-só termina quando o grupo publicar um link acessível no README. Não utilizar
-o link da Sprint 0 como evidência desta sprint.
+**Apresentador: Vinicius. Vídeo ainda não gravado/publicado (#36).** A entrega
+está sendo concluída individualmente, conforme informado pelo responsável.
+Não declarar participação ou revisão de outras pessoas. A regra acadêmica de
+participação em grupo continua na rubrica: comunicar a situação ao professor,
+sem presumir dispensa ou garantia de nota.
 
-## Preparação
+## Antes de gravar
 
-- Integrar PRs revisados e executar a versão que será entregue em `main`.
-- `mise run build-api`, `mise run up` e `node scripts/smoke-sprint1.mjs`.
-- Abrir Swagger UI em `http://localhost:8081/q/swagger-ui/`, Actions do commit
-  demonstrado, migrações e pacotes `dominio`, `aplicacao` e `adaptadores`.
-- Criar dados demonstrativos próprios; não mostrar `.env`, senhas, tokens ou
-  informações privadas na gravação. Não apagar dados de terceiros para gravar.
-- Combinar falas. A divisão abaixo é sugestão e precisa ser confirmada pela equipe.
+1. Atualize `main` após a release e anote seu hash: `git rev-parse HEAD`.
+2. Configure `.env` a partir de `.env.example`, sem mostrá-lo na gravação.
+3. Com Docker: `mise run build-api` e `mise run up`.
+4. Sem Docker: configure o PostgreSQL local e execute `mise run dev`.
+   `DEV_IDENTITY_ENABLED=true` é apenas para ambiente confiável.
+5. Em outro terminal, execute `mise run smoke` (Node 22+).
+6. Abra Swagger em `http://localhost:8081/q/swagger-ui/`, o Actions verde de
+   `main`, `docker-compose.yml`, migrações e os pacotes do código.
+7. Use nome de lista novo em cada ensaio. Crie e exclua apenas dados seus.
 
-## Falas e telas
+Sem Docker local, mostre o Compose e o job real `Compose, migrations and CRUD
+smoke` no Actions. Diga que a execução reproduzível ocorreu no CI; não finja
+que iniciou containers na máquina. Para evidenciar persistência local, use
+Ctrl+C no terminal da API e `mise run dev` novamente, sem parar o PostgreSQL.
 
-| Tempo | Pessoa sugerida | Tela e demonstração |
-| --- | --- | --- |
-| 0:00–0:30 | Vinicius | Explicar que a sprint entrega CRUD de Lista e Item com PostgreSQL e relacionamento 1:N. Identidade temporária não é autenticação real. |
-| 0:30–2:00 | Vinicius | Swagger: POST Lista 201/Location; POST Item vinculado; GET individual e páginas com `size=1`, filtro de nome/categoria; PATCH e DELETE 204. Mostrar que operações estão documentadas. |
-| 2:00–3:00 | Ivis | Compose: banco/API e volume; Flyway V1–V3, FK e índices únicos. Reiniciar API e consultar dado persistido. Esquema gerado somente por migrações. |
-| 3:00–4:00 | Thallys | Domínio e aplicação sem imports de framework; portas de repositório; adaptadores HTTP/JPA e implementação em memória. Diferenciar legado Produto do CRUD novo. |
-| 4:00–4:35 | Thallys | Nome vazio 422, UUID inválido 400, duplicidade 409 e inexistente 404. Mostrar Content-Type e campos RFC 9457. |
-| 4:35–5:00 | Ivis | CI verde no hash entregue, PRs/issues vinculados e pendências da Sprint 2: testes de domínio/integração/arquitetura, compras e gRPC. |
+## 0:00–0:30 — Apresentação
 
-## Sequência curta no Swagger
+**Tela:** README e Swagger.
 
-1. `POST /api/v1/listas`: `{"nome":"Vídeo Sprint 1"}`. Copiar o UUID e mostrar
-   `Location`; usar nome novo se a demonstração já foi executada antes.
-2. `POST /api/v1/listas/{listaId}/itens`: `{"nome":"Café","quantidade":2,
-   "unidade":"UNIDADE","categoria":"ALIMENTOS","precoEstimado":6.50}`.
-3. Adicionar `Leite 200g` e `Leite 400g`, demonstrando que permanecem distintos.
-4. Listar itens com `page=0`, `size=1`, `nome=leite`, `categoria=ALIMENTOS`
-   (informar a categoria também na criação desses dois itens para usar esse filtro).
-5. Consultar pelo UUID. PATCH `{"quantidade":3}` mantém os campos ausentes;
-   PATCH `{"precoEstimado":null}` limpa somente o valor opcional.
-6. Tentar criar `"  CAFE  "`: deve retornar 409 para a lista que já contém Café.
-7. `POST /listas` com nome vazio: 422. Consultar UUID inválido: 400; UUID bem
-   formado inexistente: 404. Não apresentar entradas inválidas como erro 500.
-8. Antes de excluir a lista, reiniciar a API e consultar o mesmo UUID para
-   evidenciar persistência. Depois DELETE Item e Lista, mostrando 204 sem corpo.
+> Olá, sou Vinicius e estou concluindo esta entrega individualmente. O TáNaLista
+> é uma API para planejamento de listas de compras. Nesta sprint implementei
+> CRUD completo de Lista e Item, relacionados de um para muitos, com PostgreSQL,
+> migrações Flyway, separação de camadas, validação e OpenAPI gerado do código.
+> A identidade usada aqui é temporária de desenvolvimento, não autenticação real.
 
-## Publicação e conclusão (manual)
+## 0:30–2:00 — Dois CRUDs, paginação e filtros
 
-- [ ] Todos os integrantes falaram; áudio/tela legíveis e duração próxima de 5 min.
-- [ ] Link funciona em janela anônima, sem pedir acesso individual.
-- [ ] Adicionar link real no início do README, na seção Vídeos.
-- [ ] Abrir PR próprio da publicação, vinculado a #36, com revisão de outro integrante.
-- [ ] Integrar antes da release final e registrar o link na issue #36.
+**Tela:** Swagger; ensaie as operações para evitar procurar botões.
 
-O roteiro, por si só, não cumpre o critério do vídeo nem o PR próprio de todos os
-integrantes. A revisão humana e as contribuições reais da equipe são necessárias.
+1. POST `/api/v1/listas` com `{"nome":"Vídeo Sprint 1"}`. Copie `listaId`.
+2. Mostre **201**, `Location` e GET `/listas/{listaId}`.
+3. Crie outra lista `{"nome":"Vídeo Sprint 1 — Reserva"}`. GET `/listas`
+   com `nome=video sprint 1`, `size=1`: mostre total e próxima página.
+4. PATCH da primeira lista com `{"nome":"Vídeo Sprint 1 — Mercado"}`.
+5. POST `/listas/{listaId}/itens` com:
+
+   ```json
+   {
+     "nome": "Café",
+     "quantidade": 2,
+     "unidade": "UNIDADE",
+     "categoria": "ALIMENTOS",
+     "precoEstimado": 6.50
+   }
+   ```
+
+6. Copie `itemId`. Crie outro item com `{"nome":"Leite 200g","categoria":"ALIMENTOS"}`.
+7. GET `/listas/{listaId}/itens` com `size=1`; depois filtre `nome=leite` e
+   `categoria=ALIMENTOS`. Consulte o Café pelo `itemId` na rota individual.
+8. PATCH do Café com `{"quantidade":3}`; mostre os outros campos preservados.
+9. DELETE do Leite e da lista Reserva: **204 sem corpo**. Mantenha a lista
+   Mercado e o Café para demonstrar persistência no próximo bloco.
+
+**Fala enquanto executa:**
+
+> A lista tem UUID e a criação retorna 201 com Location. Os itens pertencem a uma
+> lista por chave estrangeira e aparecem em rotas aninhadas. As consultas têm
+> paginação, filtros e total; a paginação é executada no SQL com tamanho máximo
+> de cem, sem carregar tudo em memória. A atualização usa PATCH e a remoção
+> retorna 204. Aqui estou demonstrando as cinco operações nas duas entidades.
+
+## 2:00–3:00 — Banco, migrações e persistência
+
+**Tela:** Compose, arquivos de migração e terminal; depois Swagger.
+
+> O Compose configura PostgreSQL e API com dependência de saúde do banco e volume
+> para os dados. As credenciais vêm do ambiente. O Flyway é a única origem do
+> esquema: a geração automática do Hibernate está desabilitada. A V1 legada foi
+> preservada; a V2 cria Lista e Item com chave estrangeira; a V3 garante a
+> unicidade do nome normalizado de item por lista, inclusive em concorrência.
+
+- Mostre `api/src/main/resources/db/migration/` e
+  `quarkus.hibernate-orm.schema-management.strategy=none`.
+- Com Docker: `docker compose restart api`. Sem Docker: reinicie só a API local
+  e mostre o job Compose verde no Actions como evidência dos containers.
+- Consulte novamente a lista Mercado e o Café pelos mesmos UUIDs.
+
+> Após reiniciar a API, os mesmos dados permanecem no PostgreSQL. O Flyway valida
+> as migrações existentes sem recriar o esquema.
+
+## 3:00–4:00 — Arquitetura
+
+**Tela:** árvore de pacotes e imports dos arquivos abaixo.
+
+| Arquivo/pacote | O que destacar |
+| --- | --- |
+| `dominio/Lista.java` e `dominio/Item.java` | Entidades imutáveis e invariantes, sem JPA/Quarkus. |
+| `dominio/ListaRepository.java` e `dominio/ItemRepository.java` | Portas de persistência. |
+| `aplicacao/Listas.java` e `aplicacao/Itens.java` | Casos de uso dependem do domínio, sem framework. |
+| `adaptadores/banco` | Entidades JPA separadas e implementação PostgreSQL/Panache. |
+| `adaptadores/http` | Recursos, DTOs, transações e tradução de erros. |
+| `adaptadores/memoria` | Alternativa para compor testes de domínio na próxima sprint. |
+
+> As dependências apontam para o domínio, que importa apenas a biblioteca padrão
+> Java. Os casos de uso recebem interfaces e não conhecem Hibernate ou HTTP.
+> O banco traduz entidades JPA para os modelos do domínio. O código anterior de
+> Produto foi mantido como legado e não faz parte do CRUD apresentado.
+
+## 4:00–4:35 — Validação e Problem Details
+
+**Tela:** Swagger e respostas HTTP.
+
+1. POST Lista com `{"nome":""}` → **422**.
+2. POST Item `{"nome":"  CAFE  "}` na lista que contém Café → **409**.
+3. GET Lista com `listaId=invalido` → **400**.
+4. GET Lista com `listaId=ffffffff-ffff-ffff-ffff-ffffffffffff` → **404**,
+   desde que esse UUID não exista no seu banco.
+
+> Entradas são validadas antes da persistência. Caixa, acentos e espaços não
+> permitem itens equivalentes na mesma lista. Os erros são traduzidos em um
+> ponto central para application/problem+json, com type, title, status, detail
+> e instance, conforme RFC 9457, sem expor SQL ou credenciais.
+
+## 4:35–5:00 — CI e encerramento
+
+**Tela:** Actions da branch `main`, hash e issues concluídas.
+
+> O OpenAPI é gerado do código e a Swagger UI está disponível na aplicação
+> empacotada. A CI compila Java e Go, mantém o teste existente e executa um smoke
+> com PostgreSQL e Compose para CRUD, migrações, isolamento e persistência.
+> Testes de domínio, integração e arquitetura ficam para a Sprint 2, assim como
+> compras e gRPC. Os merges foram autorizados para esta entrega individual,
+> sem declarar revisão externa. Este é o hash técnico apresentado.
+
+## Após gravar — publicação obrigatória
+
+- [ ] Duração próxima de cinco minutos, áudio claro e código/respostas legíveis.
+- [ ] YouTube não listado ou Drive com acesso para qualquer pessoa com o link.
+- [ ] Link testado em janela anônima e publicado na seção Vídeos do README.
+- [ ] Atualizar o estado deste roteiro para vídeo publicado.
+- [ ] Commit e PR da publicação para `develop`, CI verde e merge.
+- [ ] Nova release `develop` → `main` para incluir o link na entrega avaliada.
+- [ ] Fechar #36 somente depois de o link real estar em `main`.
+- [ ] Registrar hash final de `main`, CI e link na #35 e no canal da disciplina.
+
+O roteiro não equivale ao vídeo. Publicação e avaliação diferenciada por entrega
+individual ainda dependem, respectivamente, do responsável e do professor.

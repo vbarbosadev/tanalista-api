@@ -101,7 +101,9 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 ## Status
 
 Sprint 1: CRUD de Lista e Item, PostgreSQL/Flyway, domínio independente,
-validação RFC 9457 e OpenAPI implementados nas branches de entrega. Revisões,
-integração em `main`, vídeo e participação individual precisam de evidência
-antes de considerar a sprint encerrada. Autenticação real, compras e gRPC
-ficam para entregas posteriores.
+validação RFC 9457 e OpenAPI integrados em `develop`, com release técnica
+acompanhada na [issue #35](https://github.com/vbarbosadev/tanalista-api/issues/35).
+Entrega individual de Vinicius, sem revisão externa; isso não representa dispensa
+dos critérios acadêmicos de participação. Vídeo ainda pendente na
+[issue #36](https://github.com/vbarbosadev/tanalista-api/issues/36).
+Autenticação real, compras e gRPC ficam para entregas posteriores.
