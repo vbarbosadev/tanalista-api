@@ -56,6 +56,7 @@ pontos de história na escala de Fibonacci e associadas à sprint prevista.
 | P1 | Como usuário, quero editar e remover itens para corrigir o planejamento | 2 | 1 |
 | P1 | Como usuário, quero iniciar uma compra para executar a lista no mercado | 5 | 2 |
 | P1 | Como usuário, quero registrar preço e quantidade comprada para acompanhar o total | 5 | 2 |
+| P1 | Como usuário, quero consultar um produto pelo código de barras para adicionar o item com menos digitação | 5 | 2 |
 | P2 | Como usuário, quero compartilhar uma lista para organizar a compra com outra pessoa | 5 | Final |
 
 ## 4. Entidades principais do domínio
@@ -104,17 +105,20 @@ framework dentro do prazo da disciplina.
 
 | Java/Quarkus | Serviço Go |
 | --- | --- |
-| Entidades e regras do domínio | Trabalho de I/O concorrente ou integração externa |
-| Persistência principal e migrações | Processamento sem propriedade sobre as entidades centrais |
-| Autenticação e autorização por recurso | Serviço sem autenticação própria |
-| CRUD de listas, itens e compras | Comunicação com a API por contrato versionado |
-| Sincronização e idempotência do domínio | Sem duplicação do CRUD ou das regras de compra |
+| Entidades, regras de domínio e persistência | Consulta concorrente a fontes externas por código de barras |
+| Autenticação e autorização por recurso | Validação de códigos EAN/UPC e normalização de metadados |
+| CRUD de listas, itens e compras | Timeout, cancelamento e tratamento de falhas dos provedores |
+| Criação do Item após confirmação do usuário | Cache de curta duração e métricas a partir da Sprint 3 |
 
-A responsabilidade de negócio específica do primeiro serviço Go continua em definição.
-A decisão será tomada antes da Sprint 2 entre casos que justifiquem concorrência, I/O
-intensivo, processamento em lote ou cache, sem trazer para o MVP o catálogo próprio e a
-comparação de preços declarados fora do escopo. O esqueleto Go da Sprint 0 existe apenas
-para validar toolchain, monorepo e CI; ele não antecipa uma responsabilidade arbitrária.
+O primeiro microsserviço Go será o **barcode-lookup-service**. O aplicativo envia o
+código de barras para a API Quarkus, que chama o Go por gRPC com deadline. O serviço Go
+valida o código e consulta uma ou mais fontes externas, começando pelo Open Food Facts,
+para devolver nome, marca, categoria e unidade normalizados.
+
+A separação é justificada pelo trabalho de I/O externo, pelo uso de concorrência entre
+provedores e pelo controle de cancelamento com `context`. O Go não mantém catálogo
+próprio, não acessa as tabelas centrais e não cria itens. O Quarkus continua responsável
+por autorização, persistência e regras do domínio após o usuário confirmar os dados.
 
 ## 7. Equipe
 

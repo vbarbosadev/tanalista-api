@@ -23,6 +23,7 @@ public class ProdutoController {
     }
     
    @GET
+    @org.eclipse.microprofile.openapi.annotations.Operation(hidden = true)
     public List<ProdutoSimpleDTO> getProduto() {
           return produtoService.getAllProdutos();
      } 

@@ -20,3 +20,44 @@ jobs:
 
       - name: Run CI tasks
         run: mise run ci
+
+  sprint1-smoke:
+    name: Compose, migrations and CRUD smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Configure isolated local environment
+        run: cp .env.example .env
+      - name: Package API
+        run: mise run build-api
+      - name: Validate and start Compose
+        run: |
+          docker compose config --quiet
+          docker compose up -d --build --wait
+      - name: Verify CRUD, validation and OpenAPI
+        run: node scripts/smoke-sprint1.mjs
+      - name: Seed persistence check
+        run: node scripts/smoke-sprint1.mjs --seed
+      - name: Verify identity is disabled by default outside dev
+        run: |
+          DEV_IDENTITY_ENABLED=false docker compose up -d --no-deps api
+          node scripts/smoke-sprint1.mjs --disabled
+      - name: Verify another identity cannot access resources
+        run: |
+          DEV_USER_ID=00000000-0000-0000-0000-000000000002 docker compose up -d --no-deps api
+          node scripts/smoke-sprint1.mjs --hidden
+      - name: Verify data after API recreation
+        run: |
+          docker compose up -d --no-deps api
+          node scripts/smoke-sprint1.mjs --verify
+      - name: Compose logs
+        if: always()
+        run: docker compose logs --no-color
+      - name: Stop isolated environment
+        if: always()
+        run: docker compose down

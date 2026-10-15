@@ -4,6 +4,11 @@ Backend do **TáNaLista**, aplicativo colaborativo de listas de compras com Modo
 A API concentra as regras de negócio, a persistência, o compartilhamento e a
 sincronização dos dados usados pelo aplicativo.
 
+## Vídeos
+
+- **Sprint - 0:** [video](https://drive.google.com/file/d/1sXf73865ZDiTYRcJEdk8gAgYPKOgH0KS/view?usp=sharing)
+- **Sprint 1:** gravação/publicação pendente — [roteiro de 5 minutos](docs/video-sprint1.md).
+
 ## Disciplinas
 
 - **DIM0547 - Desenvolvimento de Sistemas Web II:** backend, contratos e infraestrutura.
@@ -30,55 +35,45 @@ docs/       Proposta e documentação do projeto
 ```
 
 O serviço Quarkus é responsável pelo domínio, persistência, autenticação, autorização e
-orquestração dos casos de uso. A responsabilidade específica do primeiro serviço Go será
-definida antes da Sprint 2 e deverá justificar o uso de concorrência, I/O intensivo,
-processamento em lote ou cache.
-
-## Pré-requisitos
-
-- [mise](https://mise.jdx.dev/getting-started.html)
-- PostgreSQL 16 instalado e em execução na máquina
-
-O `mise` instala as versões de Java e Go declaradas em `mise.toml`.
-
-O ambiente de desenvolvimento usa estas configurações locais:
-
-| Configuração | Valor |
-| --- | --- |
-| Host | `localhost` |
-| Porta | `5432` |
-| Banco | `tanalista` |
-| Usuário | `tanalista` |
-| Senha de desenvolvimento | `tanalista_pass` |
-
-Essas credenciais são exclusivas do ambiente local e não devem ser reutilizadas em
-produção.
+orquestração dos casos de uso. O primeiro serviço Go, `barcode-lookup-service`, consulta
+fontes externas por código de barras e normaliza metadados usando concorrência, timeout e
+cancelamento. A comunicação interna será feita por gRPC a partir da Sprint 2.
 
 ## Execução local
 
+Pré-requisitos: [mise](https://mise.jdx.dev/getting-started.html) e Docker Compose
+(ou PostgreSQL 16+ instalado). O mise instala Java 21 e Go.
+
+1. Copie `.env.example` para `.env` e ajuste as credenciais locais. Não versione
+   `.env`. O mise carrega esse arquivo para as tarefas; o Compose também o lê.
+2. Execute:
+
 ```bash
 mise install
-mise run build
-mise run test
-mise run dev
-```
-
-A API usa `http://localhost:8081`. Ao iniciar, o Flyway aplica as migrações no PostgreSQL
-local disponível em `localhost:5432`.
-
-Para reproduzir as verificações do GitHub Actions:
-
-```bash
-mise run ci
-```
-
-O `docker-compose.yml` é mantido como alternativa reproduzível para quem não possui
-PostgreSQL instalado. Nesse caso, use:
-
-```bash
+mise run build-api
 mise run up
-mise run down
 ```
+
+O Compose sobe PostgreSQL e a API em `http://localhost:8081`. O Flyway aplica as
+migrações em banco vazio e valida as existentes. O volume preserva os dados em
+reinícios; `mise run down` não remove o volume. Não altere migrações aplicadas.
+O esquema vem só do Flyway, nunca de geração Hibernate.
+
+Para usar PostgreSQL já instalado, configure `DB_URL`, `DB_USER` e `DB_PASSWORD`
+no `.env` e execute `mise run dev`. Não inicie o banco do Compose na mesma porta.
+Para iniciar só o banco: `docker compose up -d postgres`.
+
+O modo de identidade de desenvolvimento **não autentica usuários**. Usa
+`DEV_USER_ID` no servidor e só atende ao CRUD quando habilitado; é padrão no
+perfil `dev`, mas fora dele exige `DEV_IDENTITY_ENABLED=true`. Use somente em
+ambiente confiável; Compose publica portas apenas no loopback. Não habilite em
+produção pública. Autenticação real será uma entrega posterior.
+
+Para reproduzir a CI: `mise run ci` (Java e Go; testes existentes preservados).
+
+Swagger UI: <http://localhost:8081/q/swagger-ui/>. OpenAPI gerado do código:
+<http://localhost:8081/q/openapi> (JSON com `?format=json`). Inclui os dois CRUDs,
+paginação, filtros, UUIDs, respostas de sucesso e erros em Problem Details.
 
 ## Fluxo de branches
 
@@ -97,10 +92,18 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Contrato inicial da API](docs/contrato-api.md)
 - [Processo de desenvolvimento](docs/processo.md)
 - [Requisitos iniciais](docs/requisitos.md)
+- [Domínio: modelo implementado e planejado](docs/dominio.md)
+- [Arquitetura do CRUD](docs/arquitetura.md)
+- [Evidências, validação e fechamento da Sprint 1](docs/entrega-sprint1.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)
 - [Aplicativo mobile](https://github.com/thallystorres/tanalista)
-- Vídeo da Sprint 0: aguardando publicação
 
 ## Status
 
-Sprint 0: preparação do monorepo, proposta, backlog e integração contínua.
+Sprint 1: CRUD de Lista e Item, PostgreSQL/Flyway, domínio independente,
+validação RFC 9457 e OpenAPI integrados em `develop`, com release técnica
+acompanhada na [issue #35](https://github.com/vbarbosadev/tanalista-api/issues/35).
+Entrega individual de Vinicius, sem revisão externa; isso não representa dispensa
+dos critérios acadêmicos de participação. Vídeo ainda pendente na
+[issue #36](https://github.com/vbarbosadev/tanalista-api/issues/36).
+Autenticação real, compras e gRPC ficam para entregas posteriores.

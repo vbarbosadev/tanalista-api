@@ -2,6 +2,9 @@
 go = "1.24"
 java = "temurin-21"
 
+[env]
+_.file = { path = ".env", optional = true }
+
 [tasks.build-api]
 description = "Compila e empacota a API Quarkus"
 dir = "api"
@@ -11,7 +14,7 @@ run_windows = "mvnw.cmd -B -DskipTests package"
 [tasks.build-go]
 description = "Compila os serviços Go"
 dir = "services"
-run = "go build -o build/service ./cmd/service"
+run = "go build -o build/barcode-lookup ./cmd/barcode-lookup"
 
 [tasks.build]
 description = "Compila todos os serviços"
@@ -48,8 +51,8 @@ description = "Executa as verificações estáticas"
 depends = ["lint-api", "lint-go"]
 
 [tasks.up]
-description = "Inicia o PostgreSQL local"
-run = "docker compose up -d --wait"
+description = "Inicia PostgreSQL e API (execute build-api antes)"
+run = "docker compose up -d --build --wait"
 
 [tasks.down]
 description = "Encerra o ambiente local"
@@ -65,17 +68,22 @@ run_windows = "mvnw.cmd quarkus:dev"
 description = "Reproduz o pipeline de integração contínua"
 run = [
   "sh ./api/mvnw -f api/pom.xml -B -DskipTests package",
-  "go -C services build -o build/service ./cmd/service",
+  "go -C services build -o build/barcode-lookup ./cmd/barcode-lookup",
   "sh ./api/mvnw -f api/pom.xml -B test",
   "go -C services test ./...",
   "sh ./api/mvnw -f api/pom.xml -B validate",
   "go -C services vet ./...",
 ]
+
 run_windows = [
   '.\api\mvnw.cmd -f api\pom.xml -B -DskipTests package',
-  "go -C services build -o build/service ./cmd/service",
+  "go -C services build -o build/barcode-lookup ./cmd/barcode-lookup",
   '.\api\mvnw.cmd -f api\pom.xml -B test',
   "go -C services test ./...",
   '.\api\mvnw.cmd -f api\pom.xml -B validate',
   "go -C services vet ./...",
 ]
+
+[tasks.smoke]
+description = "Valida CRUD HTTP com Node 22+ e API ja iniciada"
+run = "node scripts/smoke-sprint1.mjs"
