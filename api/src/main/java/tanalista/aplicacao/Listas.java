@@ -23,4 +23,10 @@ public class Listas {
     public Lista buscar(UUID donoId, UUID id) {
         return repositorio.buscar(id, donoId).orElseThrow(ErroDominio::ausente);
     }
+
+    public Pagina<Lista> listar(UUID donoId, int page, int size, String nome) {
+        Pagina.validar(page, size);
+        if (nome != null && nome.length() > 120) throw ErroDominio.invalido("Filtro nome deve ter até 120 caracteres.");
+        return repositorio.listar(donoId, page, size, nome);
+    }
 }
