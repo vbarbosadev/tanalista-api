@@ -43,4 +43,20 @@ public class ListaResource {
     public Lista buscar(@PathParam("listaId") UUID listaId) {
         return listas.buscar(identidade.usuarioId(), listaId);
     }
+
+    @PATCH
+    @Path("/{listaId}")
+    @Transactional
+    public Lista renomear(@PathParam("listaId") UUID listaId, NomeRequest request) {
+        if (request == null) throw ErroDominio.invalido("Corpo JSON obrigatório.");
+        return listas.renomear(identidade.usuarioId(), listaId, request.nome());
+    }
+
+    @DELETE
+    @Path("/{listaId}")
+    @Transactional
+    public Response remover(@PathParam("listaId") UUID listaId) {
+        listas.remover(identidade.usuarioId(), listaId);
+        return Response.noContent().build();
+    }
 }
