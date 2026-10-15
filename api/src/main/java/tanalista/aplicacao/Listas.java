@@ -29,4 +29,15 @@ public class Listas {
         if (nome != null && nome.length() > 120) throw ErroDominio.invalido("Filtro nome deve ter até 120 caracteres.");
         return repositorio.listar(donoId, page, size, nome);
     }
+
+    public Lista renomear(UUID donoId, UUID id, String nome) {
+        var atual = buscar(donoId, id);
+        return repositorio.salvar(new Lista(id, donoId, nome, atual.criadaEm(), relogio.instant()));
+    }
+
+    public void remover(UUID donoId, UUID id) {
+        buscar(donoId, id);
+        itens.removerDaLista(id);
+        repositorio.remover(id);
+    }
 }
