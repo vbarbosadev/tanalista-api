@@ -7,6 +7,7 @@ import tanalista.aplicacao.Itens;
 import tanalista.config.IdentidadeDesenvolvimento;
 import tanalista.dominio.ErroDominio;
 import tanalista.dominio.Item;
+import tanalista.dominio.Pagina;
 import java.util.UUID;
 
 @Path("/api/v1/listas/{listaId}/itens")
@@ -46,5 +47,19 @@ public class ItemResource {
     public Response remover(@PathParam("listaId") UUID listaId, @PathParam("itemId") UUID itemId) {
         itens.remover(identidade.usuarioId(), listaId, itemId);
         return Response.noContent().build();
+    }
+
+    @GET
+    public Pagina<Item> listar(@PathParam("listaId") UUID listaId,
+                              @QueryParam("page") @DefaultValue("0") int page,
+                              @QueryParam("size") @DefaultValue("20") int size,
+                              @QueryParam("nome") String nome, @QueryParam("categoria") String categoria) {
+        return itens.listar(identidade.usuarioId(), listaId, page, size, nome, categoria);
+    }
+
+    @GET
+    @Path("/{itemId}")
+    public Item buscar(@PathParam("listaId") UUID listaId, @PathParam("itemId") UUID itemId) {
+        return itens.buscar(identidade.usuarioId(), listaId, itemId);
     }
 }
