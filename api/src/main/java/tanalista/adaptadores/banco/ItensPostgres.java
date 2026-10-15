@@ -10,16 +10,22 @@ import java.util.UUID;
 public class ItensPostgres implements ItemRepository, PanacheRepositoryBase<ItemJpa, UUID> {
     @Override
     public Item salvar(Item item) {
-        var entidade = findById(item.id());
-        if (entidade == null) {
-            entidade = new ItemJpa();
-            entidade.preencher(item);
-            persist(entidade);
-        } else {
-            entidade.preencher(item);
+        if (count("listaId = ?1 and nomeNormalizado = ?2 and id <> ?3",
+                item.listaId(), item.nomeNormalizado(), item.id()) > 0) throw ErroDominio.duplicado();
+        try {
+            var entidade = findById(item.id());
+            if (entidade == null) {
+                entidade = new ItemJpa();
+                entidade.preencher(item);
+                persist(entidade);
+            } else {
+                entidade.preencher(item);
+            }
+            flush();
+            return entidade.dominio();
+        } catch (RuntimeException erro) {
+            throw ConflitosPostgres.traduzir(erro);
         }
-        flush();
-        return entidade.dominio();
     }
 
     @Override
