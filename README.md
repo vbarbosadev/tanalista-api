@@ -37,51 +37,37 @@ orquestração dos casos de uso. O primeiro serviço Go, `barcode-lookup-service
 fontes externas por código de barras e normaliza metadados usando concorrência, timeout e
 cancelamento. A comunicação interna será feita por gRPC a partir da Sprint 2.
 
-## Pré-requisitos
-
-- [mise](https://mise.jdx.dev/getting-started.html)
-- PostgreSQL 16 instalado e em execução na máquina
-
-O `mise` instala as versões de Java e Go declaradas em `mise.toml`.
-
-O ambiente de desenvolvimento usa estas configurações locais:
-
-| Configuração | Valor |
-| --- | --- |
-| Host | `localhost` |
-| Porta | `5432` |
-| Banco | `tanalista` |
-| Usuário | `tanalista` |
-| Senha de desenvolvimento | `tanalista_pass` |
-
-Essas credenciais são exclusivas do ambiente local e não devem ser reutilizadas em
-produção.
-
 ## Execução local
+
+Pré-requisitos: [mise](https://mise.jdx.dev/getting-started.html) e Docker Compose
+(ou PostgreSQL 16+ instalado). O mise instala Java 21 e Go.
+
+1. Copie `.env.example` para `.env` e ajuste as credenciais locais. Não versione
+   `.env`. O mise carrega esse arquivo para as tarefas; o Compose também o lê.
+2. Execute:
 
 ```bash
 mise install
-mise run build
-mise run test
-mise run dev
-```
-
-A API usa `http://localhost:8081`. Ao iniciar, o Flyway aplica as migrações no PostgreSQL
-local disponível em `localhost:5432`.
-
-Para reproduzir as verificações do GitHub Actions:
-
-```bash
-mise run ci
-```
-
-O `docker-compose.yml` é mantido como alternativa reproduzível para quem não possui
-PostgreSQL instalado. Nesse caso, use:
-
-```bash
+mise run build-api
 mise run up
-mise run down
 ```
+
+O Compose sobe PostgreSQL e a API em `http://localhost:8081`. O Flyway aplica as
+migrações em banco vazio e valida as existentes. O volume preserva os dados em
+reinícios; `mise run down` não remove o volume. Não altere migrações aplicadas.
+O esquema vem só do Flyway, nunca de geração Hibernate.
+
+Para usar PostgreSQL já instalado, configure `DB_URL`, `DB_USER` e `DB_PASSWORD`
+no `.env` e execute `mise run dev`. Não inicie o banco do Compose na mesma porta.
+Para iniciar só o banco: `docker compose up -d postgres`.
+
+O modo de identidade de desenvolvimento **não autentica usuários**. Usa
+`DEV_USER_ID` no servidor e só atende ao CRUD quando habilitado; é padrão no
+perfil `dev`, mas fora dele exige `DEV_IDENTITY_ENABLED=true`. Use somente em
+ambiente confiável; Compose publica portas apenas no loopback. Não habilite em
+produção pública. Autenticação real será uma entrega posterior.
+
+Para reproduzir a CI: `mise run ci` (Java e Go; testes existentes preservados).
 
 ## Fluxo de branches
 
