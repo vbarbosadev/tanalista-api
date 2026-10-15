@@ -10,6 +10,7 @@ import tanalista.dominio.ErroDominio;
 import tanalista.dominio.Lista;
 import tanalista.dominio.Pagina;
 import java.util.UUID;
+import java.util.Set;
 import org.eclipse.microprofile.openapi.annotations.*;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.eclipse.microprofile.openapi.annotations.responses.*;
@@ -58,7 +59,9 @@ public class ListaResource {
     @APIResponse(responseCode = "200", description = "Página de listas", content = @Content(schema = @Schema(implementation = OpenApiSchemas.PaginaListas.class)))
     public Pagina<Lista> listar(@Parameter(description = "Página a partir de zero; offset até 2147483647", schema = @Schema(minimum = "0")) @QueryParam("page") @DefaultValue("0") int page,
                               @Parameter(description = "Tamanho de 1 a 100", schema = @Schema(minimum = "1", maximum = "100")) @QueryParam("size") @DefaultValue("20") int size,
-                              @Parameter(description = "Substring normalizada, até 120 caracteres; % e _ são literais") @QueryParam("nome") String nome) {
+                              @Parameter(description = "Substring normalizada, até 120 caracteres; % e _ são literais") @QueryParam("nome") String nome,
+                              @Context UriInfo uri) {
+        QueryParameters.validar(uri, Set.of("page", "size", "nome"));
         return listas.listar(identidade.usuarioId(), page, size, nome);
     }
 

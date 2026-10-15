@@ -10,6 +10,7 @@ import tanalista.dominio.ErroDominio;
 import tanalista.dominio.Item;
 import tanalista.dominio.Pagina;
 import java.util.UUID;
+import java.util.Set;
 import org.eclipse.microprofile.openapi.annotations.*;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.eclipse.microprofile.openapi.annotations.responses.*;
@@ -82,7 +83,9 @@ public class ItemResource {
                               @Parameter(description = "Página a partir de zero; offset até 2147483647", schema = @Schema(minimum = "0")) @QueryParam("page") @DefaultValue("0") int page,
                               @Parameter(description = "Tamanho de 1 a 100", schema = @Schema(minimum = "1", maximum = "100")) @QueryParam("size") @DefaultValue("20") int size,
                               @Parameter(description = "Substring normalizada, até 120 caracteres") @QueryParam("nome") String nome,
-                              @Parameter(description = "Categoria exata, sensível a caixa, até 60 caracteres") @QueryParam("categoria") String categoria) {
+                              @Parameter(description = "Categoria exata, sensível a caixa, até 60 caracteres") @QueryParam("categoria") String categoria,
+                              @Context UriInfo uri) {
+        QueryParameters.validar(uri, Set.of("page", "size", "nome", "categoria"));
         return itens.listar(identidade.usuarioId(), listaId, page, size, nome, categoria);
     }
 

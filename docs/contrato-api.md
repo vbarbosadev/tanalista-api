@@ -25,6 +25,8 @@ Usuários, acessos, compras e código de barras permanecem planejamento futuro.
   Isto **não é autenticação**. Listas de outro dono e seus itens retornam 404.
 - `page=0`, `size=20`, máximo 100; offset máximo 2147483647; paginação no SQL.
   Resposta: `items`, `page`, `size`, `total`. Página além do fim retorna `items: []`.
+  Parâmetros repetidos/desconhecidos e page/size vazios retornam 400;
+  categoria vazia retorna 422.
 - Listas: filtro `nome` (substring normalizada, até 120 caracteres), ordem
   `atualizadaEm DESC, id ASC`. Itens: filtros `nome` e `categoria` (igualdade
   sensível a caixa, até 60 caracteres), ordem `nomeNormalizado ASC, id ASC`.

@@ -4,7 +4,8 @@ Backend do **TáNaLista**, aplicativo colaborativo de listas de compras com Modo
 A API concentra as regras de negócio, a persistência, o compartilhamento e a
 sincronização dos dados usados pelo aplicativo.
 
-## Videos
+## Vídeos
+
 - **Sprint - 0:** [video](https://drive.google.com/file/d/1sXf73865ZDiTYRcJEdk8gAgYPKOgH0KS/view?usp=sharing)
 
 ## Disciplinas
@@ -91,10 +92,15 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Processo de desenvolvimento](docs/processo.md)
 - [Requisitos iniciais](docs/requisitos.md)
 - [Domínio: modelo implementado e planejado](docs/dominio.md)
+- [Arquitetura do CRUD](docs/arquitetura.md)
+- [Evidências, validação e fechamento da Sprint 1](docs/entrega-sprint1.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)
 - [Aplicativo mobile](https://github.com/thallystorres/tanalista)
-- Vídeo da Sprint 0: aguardando publicação
 
 ## Status
 
-Sprint 0: preparação do monorepo, proposta, backlog e integração contínua.
+Sprint 1: CRUD de Lista e Item, PostgreSQL/Flyway, domínio independente,
+validação RFC 9457 e OpenAPI implementados nas branches de entrega. Revisões,
+integração em `main`, vídeo e participação individual precisam de evidência
+antes de considerar a sprint encerrada. Autenticação real, compras e gRPC
+ficam para entregas posteriores.

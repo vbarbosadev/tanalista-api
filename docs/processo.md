@@ -41,6 +41,13 @@ Uma história pode ser fechada quando:
 - pull request foi revisado e integrado em `develop`;
 - não há segredo, artefato local ou ajuste manual necessário.
 
+**Exceção da Sprint 1 (ajuste da disciplina de 13/10):** novos testes unitários,
+de integração com banco real e de arquitetura são avaliados na Sprint 2. Não
+bloqueiam esta sprint; testes existentes e CI Java/Go continuam obrigatórios.
+Validar os critérios com o roteiro de [entrega](entrega-sprint1.md), sem declarar
+que o smoke substitui a suíte prevista para Sprint 2. Revisão por outro integrante
+e integração continuam obrigatórias; não marcar Done somente por ter commit/push.
+
 ## Gestão do backlog
 
 O [GitHub Project](https://github.com/users/vbarbosadev/projects/3) é a fonte do backlog.
