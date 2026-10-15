@@ -7,13 +7,19 @@ import java.util.Set;
 import tanalista.aplicacao.Itens;
 import tanalista.dominio.ErroDominio;
 import tanalista.dominio.Item;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 /** Campo ausente mantém o valor; null explícito limpa somente os opcionais. */
 public class ItemPatchRequest {
+    @Schema(maxLength = 120, description = "Nome não nulo; campo ausente mantém o nome atual.")
     public String nome;
+    @Schema(nullable = true, minimum = "0", exclusiveMinimum = true, maximum = "999999999.999", multipleOf = 0.001)
     public BigDecimal quantidade;
+    @Schema(nullable = true, maxLength = 30)
     public String unidade;
+    @Schema(nullable = true, maxLength = 60)
     public String categoria;
+    @Schema(nullable = true, minimum = "0", maximum = "999999999.99", multipleOf = 0.01)
     public BigDecimal precoEstimado;
     @JsonIgnore private final Set<String> presentes = new HashSet<>();
 
