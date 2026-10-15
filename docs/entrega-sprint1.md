@@ -41,7 +41,36 @@ persistência após recriar a API. O workflow anterior Java/Go permanece ativo.
 - Persistência: `--seed` cria lista/item; `--verify` consulta os mesmos dados
   após reiniciar a API e remove somente a lista semeada: 3 requisições verificadas.
 - Docker não está instalado no ambiente local. Validação de Compose é delegada
-  ao job específico no GitHub Actions; conferir o resultado antes do merge.
+  ao job específico no GitHub Actions.
+
+## Evidência no GitHub Actions
+
+[CI completa do commit b14ade8](https://github.com/vbarbosadev/tanalista-api/actions/runs/38736029541)
+passou em 15/10: build/test/lint de Java/Go e job `Compose, migrations and CRUD
+smoke`. Este último construiu a imagem, iniciou PostgreSQL 16 e API, executou
+CRUD/validações/OpenAPI, semeou dados, desabilitou a identidade, trocou o dono e
+confirmou persistência ao recriar a API. Isso valida Compose mesmo sem Docker local.
+
+[CI da documentação final 18879e1](https://github.com/vbarbosadev/tanalista-api/actions/runs/38736229736)
+também passou nos dois jobs. Markdownlint dos oito documentos modificados passou.
+Esses resultados são das branches de entrega, **não de `main`**.
+
+| Issue | PR incremental | Commit da implementação |
+| --- | --- | --- |
+| #25 | [#37](https://github.com/vbarbosadev/tanalista-api/pull/37) | `61f5ab8` |
+| #29 | [#38](https://github.com/vbarbosadev/tanalista-api/pull/38) | `ed5e9fc` |
+| #30 | [#39](https://github.com/vbarbosadev/tanalista-api/pull/39) | `d1fe966` |
+| #19 | [#40](https://github.com/vbarbosadev/tanalista-api/pull/40) | `c7e9769` |
+| #17 | [#41](https://github.com/vbarbosadev/tanalista-api/pull/41) | `70e40dc` |
+| #31 | [#42](https://github.com/vbarbosadev/tanalista-api/pull/42) | `4329bb4` |
+| #14 | [#43](https://github.com/vbarbosadev/tanalista-api/pull/43) | `1c3bc32` |
+| #12 | [#44](https://github.com/vbarbosadev/tanalista-api/pull/44) | `dda13a9` |
+| #13 | [#45](https://github.com/vbarbosadev/tanalista-api/pull/45) | `31b294a` |
+| #32 | [#46](https://github.com/vbarbosadev/tanalista-api/pull/46) | `064f191` |
+| #33 | [#47](https://github.com/vbarbosadev/tanalista-api/pull/47) | `6022a76` |
+| #34 | [#48](https://github.com/vbarbosadev/tanalista-api/pull/48) | `d2c2036` |
+| #35 (parcial) | [#49](https://github.com/vbarbosadev/tanalista-api/pull/49) | `b14ade8` |
+| #36 (roteiro) | [#50](https://github.com/vbarbosadev/tanalista-api/pull/50) | `18879e1` |
 
 Os testes revelaram e corrigiram categoria vazia interpretada como ausência e
 tradução de unicidade concorrente dependente do idioma do PostgreSQL. A tradução
