@@ -100,6 +100,7 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Contrato inicial da API](docs/contrato-api.md)
 - [Processo de desenvolvimento](docs/processo.md)
 - [Requisitos iniciais](docs/requisitos.md)
+- [Domínio: modelo implementado e planejado](docs/dominio.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)
 - [Aplicativo mobile](https://github.com/thallystorres/tanalista)
 - Vídeo da Sprint 0: aguardando publicação
