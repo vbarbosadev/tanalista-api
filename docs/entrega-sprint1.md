@@ -1,8 +1,23 @@
 # Evidências e fechamento da Sprint 1
 
 Prazo: **16/10/2026, 23h59**. A entrega avaliada é o commit em `main`, não o
-estado de uma branch de funcionalidade. Este documento não declara revisão,
-merge ou vídeo realizados enquanto faltarem evidências.
+estado de uma branch de funcionalidade. Atualização: **16/10/2026**.
+
+## Identificação e situação atual
+
+- **Único integrante em DIM0547:** Vinicius Barbosa, matrícula 20230051760,
+  GitHub [vbarbosadev](https://github.com/vbarbosadev).
+- **Vídeo:** [demonstração da Sprint 1](https://youtu.be/arCPkAo0HdQ), informado
+  pelo responsável. O conteúdo e o acesso anônimo não foram avaliados nesta revisão.
+- **Release técnica:** [PR #53](https://github.com/vbarbosadev/tanalista-api/pull/53),
+  integrado em `main`, commit `cc74accb5f1efc781c0d62825811c7d874e12a1b`.
+- **CI desse commit:** [execução aprovada](https://github.com/vbarbosadev/tanalista-api/actions/runs/38740126762),
+  com build/test/lint Java/Go e Compose, migrações, CRUD, isolamento e persistência.
+- **Uso de IA como auxílio:** [registro de ferramentas e atividades](uso-de-ia.md).
+
+A implementação técnica já está em `main`. O link do vídeo e as correções deste
+fechamento estão preparados localmente e ainda exigem commit, PR, integração e
+CI do novo commit. A aprovação de `cc74acc` não valida alterações posteriores.
 
 ## Validação técnica reproduzível
 
@@ -53,7 +68,8 @@ confirmou persistência ao recriar a API. Isso valida Compose mesmo sem Docker l
 
 [CI da documentação final 18879e1](https://github.com/vbarbosadev/tanalista-api/actions/runs/38736229736)
 também passou nos dois jobs. Markdownlint dos oito documentos modificados passou.
-Esses resultados são das branches de entrega, **não de `main`**.
+Esses resultados históricos são das branches de entrega. A CI de `main` após
+a release está indicada na seção de situação atual.
 
 | Issue | PR incremental | Commit da implementação |
 | --- | --- | --- |
@@ -91,7 +107,7 @@ agora usa o nome da restrição nos metadados do protocolo do driver.
 - Não apresentar Produto legado como CRUD entregue, identidade temporária como
   autenticação, nem compras/progresso/compartilhamento como implementados.
 
-## Integração e participação — registro individual
+## Histórico de integração — registro individual
 
 **Atualização de 15/10:** o responsável informou não contar com outro integrante
 e autorizou expressamente os merges após checks verdes, sem revisão externa.
@@ -100,10 +116,10 @@ professor. Os PRs #37–#50 estão integrados em `develop`; o PR #51 trouxe os
 merges #38/#39 que haviam entrado em bases intermediárias. Nenhum histórico foi
 descartado e nenhuma branch foi apagada.
 
-O fechamento técnico de #35 será feito após release e CI de `main`; isso não
-significa vídeo entregue. #36 permanece aberta até a publicação do link real.
-Depois da gravação, incluir o link em nova release e atualizar o hash final
-na #35 e no canal da disciplina. O roteiro individual está em
+O fechamento técnico de #35 já ocorreu após a release #53 e a CI verde de `main`.
+A #36 permanece aberta até a integração do link do vídeo na entrega.
+Após publicar estas alterações em nova release, atualizar o hash final e a CI
+na #35 e no canal de entrega adotado pela disciplina. O roteiro individual está em
 [video-sprint1.md](video-sprint1.md).
 
 ### Procedimento original de integração e critérios da rubrica
@@ -119,18 +135,28 @@ cadeia e facilita a revisão incremental. Não fazer force-push nem apagar bases
 enquanto existirem PRs dependentes. As issues só vão para Done após revisão e
 integração; autoria automatizada não vale como participação de outro integrante.
 
-- Revisão por outro integrante: **não realizada; entrega individual**.
-- Participação distribuída: **não comprovada; não simular autoria**.
+- Único integrante do backend: **Vinicius Barbosa**. Não há revisão externa
+  nem participação atribuída à equipe do aplicativo mobile nesta entrega.
+- Para grupos individuais, a avaliação substitui os indicadores de aprovação
+  por outro integrante e movimentação do quadro por PRs com descrição/checklist
+  e issues fechadas por PR referenciado. Os demais critérios permanecem válidos.
 - [x] PRs integrados em `develop`, com checks verdes e cartões vinculados.
-- [ ] Vídeo individual gravado, acessível e linkado no README (#36).
-- [ ] Release técnica `develop` → `main` integrada, sem revisão externa (#35).
-- [ ] CI verde no commit de `main`; registrar hash e URL do workflow em #35.
+- [x] Vídeo pronto e link do YouTube informado pelo responsável.
+- [x] Link incluído no README local e registro de uso de IA criado.
+- [x] Release técnica `develop` → `main` integrada pelo PR #53 (#35).
+- [x] CI verde no commit técnico de `main`, com hash e workflow registrados em #35.
+- [ ] Confirmar acesso ao vídeo em janela anônima e conferir duração/legibilidade.
+- [ ] Integrar documentação e link do vídeo via PR em `develop` e release para `main`.
+- [ ] Aguardar CI verde no novo commit de `main` e atualizar hash/links em #35.
+- [ ] Fechar #36 por PR referenciado após integração e concluir seu cartão no quadro.
+- [ ] Confirmar registro da daily de 28 ou 30/09 e composição individual com o professor.
 
 Na inspeção inicial, `main` tinha um merge commit exclusivo e `develop` três
 commits exclusivos (definição do serviço Go e vídeo da Sprint 0). Isso é uma
 divergência de histórico, não autorização para descartar mudanças. O PR de
 release deve integrar ambos e confirmar a ausência de conflitos.
 
-Somente o proprietário apareceu na lista de colaboradores consultada. A equipe
-precisa garantir acesso para revisão/contribuições ou usar forks e PRs públicos.
-Não foram adicionados colaboradores nem simuladas aprovações de outras contas.
+Somente o proprietário apareceu na lista de colaboradores consultada, coerente
+com o projeto individual. Não foram adicionados colaboradores nem simuladas
+aprovações de outras contas. O histórico acima não representa pendência de
+convidar integrantes para esta entrega.

@@ -1,10 +1,10 @@
 # Roteiro individual do vídeo — Sprint 1 (5 minutos)
 
-**Apresentador: Vinicius. Vídeo ainda não gravado/publicado (#36).** A entrega
-está sendo concluída individualmente, conforme informado pelo responsável.
-Não declarar participação ou revisão de outras pessoas. A regra acadêmica de
-participação em grupo continua na rubrica: comunicar a situação ao professor,
-sem presumir dispensa ou garantia de nota.
+**Apresentador e único integrante em DIM0547: Vinicius Barbosa.**
+Vídeo informado pelo responsável em 16/10/2026:
+[demonstração da Sprint 1 no YouTube](https://youtu.be/arCPkAo0HdQ).
+Este documento preserva o roteiro de preparação; não é uma transcrição nem uma
+avaliação do vídeo. A publicação do link no repositório é acompanhada na #36.
 
 ## Antes de gravar
 
@@ -135,13 +135,13 @@ Ctrl+C no terminal da API e `mise run dev` novamente, sem parar o PostgreSQL.
 ## Após gravar — publicação obrigatória
 
 - [ ] Duração próxima de cinco minutos, áudio claro e código/respostas legíveis.
-- [ ] YouTube não listado ou Drive com acesso para qualquer pessoa com o link.
-- [ ] Link testado em janela anônima e publicado na seção Vídeos do README.
-- [ ] Atualizar o estado deste roteiro para vídeo publicado.
+- [x] Link do YouTube informado pelo responsável e incluído no README local.
+- [ ] Confirmar acesso ao vídeo em janela anônima, como público ou não listado.
+- [x] Atualizar o estado deste roteiro com o link do vídeo.
 - [ ] Commit e PR da publicação para `develop`, CI verde e merge.
 - [ ] Nova release `develop` → `main` para incluir o link na entrega avaliada.
 - [ ] Fechar #36 somente depois de o link real estar em `main`.
 - [ ] Registrar hash final de `main`, CI e link na #35 e no canal da disciplina.
 
-O roteiro não equivale ao vídeo. Publicação e avaliação diferenciada por entrega
-individual ainda dependem, respectivamente, do responsável e do professor.
+O roteiro não equivale ao vídeo. A integração do link em `main` e a confirmação
+de acesso permanecem no checklist; a avaliação cabe ao professor.

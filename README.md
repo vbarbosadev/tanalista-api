@@ -7,7 +7,7 @@ sincronização dos dados usados pelo aplicativo.
 ## Vídeos
 
 - **Sprint - 0:** [video](https://drive.google.com/file/d/1sXf73865ZDiTYRcJEdk8gAgYPKOgH0KS/view?usp=sharing)
-- **Sprint 1:** gravação/publicação pendente — [roteiro de 5 minutos](docs/video-sprint1.md).
+- **Sprint 1:** [vídeo de demonstração](https://youtu.be/arCPkAo0HdQ) — [roteiro de 5 minutos](docs/video-sprint1.md).
 
 ## Disciplinas
 
@@ -20,10 +20,10 @@ sincronização dos dados usados pelo aplicativo.
 | Nome | Matrícula | GitHub | Papel em DIM0547 |
 | --- | --- | --- | --- |
 | Vinicius Barbosa | 20230051760 | [vbarbosadev](https://github.com/vbarbosadev) | Desenvolvedor principal e responsável pelo backend |
-| Thallys | 20240011552 | [thallystorres](https://github.com/thallystorres) | Apoio na validação do domínio e critérios de aceitação |
-| Ivis | 20220028454 | [ivixs](https://github.com/ivixs) | Apoio na organização do backlog e processo |
 
-**Coorte:** B - apresentação online.
+**Projeto individual em DIM0547:** Vinicius Barbosa é o único integrante e responsável
+pelo backend. A equipe do aplicativo mobile pertence ao projeto integrado de DIM0524,
+não à equipe desta entrega. As coortes foram substituídas pelas daily meetings.
 
 ## Estrutura
 
@@ -95,15 +95,19 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Domínio: modelo implementado e planejado](docs/dominio.md)
 - [Arquitetura do CRUD](docs/arquitetura.md)
 - [Evidências, validação e fechamento da Sprint 1](docs/entrega-sprint1.md)
+- [Registro de uso de IA como auxílio](docs/uso-de-ia.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)
 - [Aplicativo mobile](https://github.com/thallystorres/tanalista)
 
 ## Status
 
 Sprint 1: CRUD de Lista e Item, PostgreSQL/Flyway, domínio independente,
-validação RFC 9457 e OpenAPI integrados em `develop`, com release técnica
-acompanhada na [issue #35](https://github.com/vbarbosadev/tanalista-api/issues/35).
-Entrega individual de Vinicius, sem revisão externa; isso não representa dispensa
-dos critérios acadêmicos de participação. Vídeo ainda pendente na
-[issue #36](https://github.com/vbarbosadev/tanalista-api/issues/36).
+validação RFC 9457 e OpenAPI publicados em `main` pelo
+[PR #53](https://github.com/vbarbosadev/tanalista-api/pull/53), com
+[CI verde no commit técnico `cc74acc`](https://github.com/vbarbosadev/tanalista-api/actions/runs/38740126762).
+Entrega individual de Vinicius, sem revisão externa. Vídeo disponível no YouTube;
+a publicação deste link e da documentação atualizada ainda precisa ser integrada
+à entrega em `main`, com nova CI e atualização das issues
+[#35](https://github.com/vbarbosadev/tanalista-api/issues/35) e
+[#36](https://github.com/vbarbosadev/tanalista-api/issues/36).
 Autenticação real, compras e gRPC ficam para entregas posteriores.

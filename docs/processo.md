@@ -45,15 +45,18 @@ Uma história pode ser fechada quando:
 de integração com banco real e de arquitetura são avaliados na Sprint 2. Não
 bloqueiam esta sprint; testes existentes e CI Java/Go continuam obrigatórios.
 Validar os critérios com o roteiro de [entrega](entrega-sprint1.md), sem declarar
-que o smoke substitui a suíte prevista para Sprint 2. Revisão por outro integrante
-e integração continuam obrigatórias; não marcar Done somente por ter commit/push.
+que o smoke substitui a suíte prevista para Sprint 2. Autorrevisão, evidências e
+integração continuam obrigatórias; não marcar Done somente por ter commit/push.
 
-**Situação individual registrada na Sprint 1:** o responsável informou não ter
-outro integrante e autorizou merges após checks verdes, sem revisão externa.
-As issues técnicas podem ser encerradas com implementação, CI e integração
-comprovadas, registrando explicitamente essa ausência. Não se presume dispensa
-da rubrica acadêmica nem se simula aprovação, autoria ou participação alheia.
-Vídeo e publicação continuam com issue própria até haver evidência real.
+**Projeto individual em DIM0547:** Vinicius Barbosa é o único integrante.
+Os PRs passam por autorrevisão, com descrição, checklist e referência às issues;
+não se declara revisão externa. Conforme a avaliação da disciplina, para grupos
+individuais os indicadores de aprovação por outro integrante e movimentação do
+quadro são substituídos por PRs com descrição/checklist e issues fechadas por PR
+referenciado. Os demais critérios acadêmicos continuam aplicáveis.
+As issues técnicas exigem implementação, CI e integração comprovadas.
+A issue do vídeo só é concluída após o link real estar integrado em `main`.
+O apoio de IA é registrado em [uso-de-ia.md](uso-de-ia.md).
 
 ## Gestão do backlog
 
