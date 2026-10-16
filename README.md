@@ -7,7 +7,7 @@ sincronização dos dados usados pelo aplicativo.
 ## Vídeos
 
 - **Sprint - 0:** [video](https://drive.google.com/file/d/1sXf73865ZDiTYRcJEdk8gAgYPKOgH0KS/view?usp=sharing)
-- **Sprint 1:** [vídeo de demonstração](https://youtu.be/arCPkAo0HdQ) — [roteiro de 5 minutos](docs/video-sprint1.md).
+- **Sprint 1:** [vídeo de demonstração](https://youtu.be/arCPkAo0HdQ).
 
 ## Disciplinas
 

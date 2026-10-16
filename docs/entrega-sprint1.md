@@ -119,8 +119,8 @@ descartado e nenhuma branch foi apagada.
 O fechamento técnico de #35 já ocorreu após a release #53 e a CI verde de `main`.
 A #36 permanece aberta até a integração do link do vídeo na entrega.
 Após publicar estas alterações em nova release, atualizar o hash final e a CI
-na #35 e no canal de entrega adotado pela disciplina. O roteiro individual está em
-[video-sprint1.md](video-sprint1.md).
+na #35 e no canal de entrega adotado pela disciplina. O roteiro de preparação
+é mantido apenas localmente e não faz parte dos arquivos versionados da entrega.
 
 ### Procedimento original de integração e critérios da rubrica
 
