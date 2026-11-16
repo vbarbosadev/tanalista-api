@@ -139,6 +139,9 @@ A daily não depende do vídeo final.
 `develop` é a branch padrão: `Closes #N` nos PRs para ela pode fechar issues.
 Done representa integração, não implantação. Vídeo, URL e outros requisitos de
 publicação só terminam quando suas evidências estiverem no destino exigido.
+Como `main` não é a branch padrão, o PR de release pode não fechar a issue
+automaticamente: após merge e CI, registrar o link do PR/hash na issue de
+release, encerrá-la explicitamente e atualizar o Project.
 
 Em projeto individual não exigir aprovação de outra conta nem declarar revisão
 externa fictícia. PRs devem ter descrição, checklist e autorrevisão. Manter PRs
