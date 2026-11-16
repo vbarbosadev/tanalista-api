@@ -42,6 +42,11 @@ podem gerar registros duplicados ao sincronizar.
 
 ## 3. Backlog inicial
 
+O planejamento abaixo é histórico. O compromisso final de DIM0547 está no
+[plano da Sprint 2](SPRINT-2.md): compras e compartilhamento foram mantidos
+no backlog do produto, fora da entrega acadêmica de 30/11. Não há Sprint 3
+ou entrega Final posterior. Conciliar o recorte com o aplicativo mobile.
+
 O backlog do backend é mantido no
 [GitHub Project TáNaLista API - Backlog](https://github.com/users/vbarbosadev/projects/3).
 As histórias são registradas como issues, priorizadas em P1, P2 ou P3, estimadas em
@@ -108,7 +113,7 @@ framework dentro do prazo da disciplina.
 | Entidades, regras de domínio e persistência | Consulta concorrente a fontes externas por código de barras |
 | Autenticação e autorização por recurso | Validação de códigos EAN/UPC e normalização de metadados |
 | CRUD de listas, itens e compras | Timeout, cancelamento e tratamento de falhas dos provedores |
-| Criação do Item após confirmação do usuário | Cache de curta duração e métricas a partir da Sprint 3 |
+| Criação do Item após confirmação do usuário | Cache e métricas no backlog futuro do produto, sem sprint acadêmica |
 
 O primeiro microsserviço Go será o **barcode-lookup-service**. O aplicativo envia o
 código de barras para a API Quarkus, que chama o Go por gRPC com deadline. O serviço Go

@@ -10,6 +10,9 @@ feature/* ou chore/* -> develop -> main
 - `main` contém somente versões avaliadas ou prontas para produção.
 - Mudanças entram por pull request; commits diretos em `main` não fazem parte do fluxo.
 - A entrega de cada sprint exige um PR de release de `develop` para `main` com CI verde.
+- Usar `feature|test|chore|docs/<issue>-descricao` a partir de `develop`.
+- Release usa merge commit para preservar a ancestralidade entre as branches.
+- Corrigir diferenças vindas de `main` por PR de sincronização, nunca reset.
 
 ## Commits e pull requests
 
@@ -19,6 +22,11 @@ explicar a motivação, indicar como foi validado e relacionar as issues corresp
 
 Revisões verificam comportamento, critérios de aceitação, testes, documentação e ausência
 de segredos. O autor só solicita integração quando `mise run ci` passa localmente.
+
+Usar o template de PR com evidências dos comandos realmente executados,
+limitações e checklist de autorrevisão. `develop` é a branch padrão:
+`Closes #N` em PR para ela pode fechar a issue após merge. Para histórias ainda
+incompletas, usar `Refs #N`. Done significa integrado, não necessariamente no ar.
 
 ## Definition of Ready
 
@@ -64,3 +72,22 @@ O [GitHub Project](https://github.com/users/vbarbosadev/projects/3) é a fonte d
 Prioridades usam P1, P2 e P3; estimativas usam pontos de história na escala de Fibonacci.
 O status muda entre `Backlog`, `Ready`, `In progress`, `In review` e `Done`. Fechar uma
 issue sem evidência no repositório não é considerado conclusão.
+
+## Sprint 2 — entrega final
+
+O [plano da Sprint 2](SPRINT-2.md) reúne fontes oficiais, escopo, tarefas,
+dependências, metas e checklist. Usar o milestone **Sprint 2 — Entrega final**,
+com prazo de 30/11/2026 às 23:59 (Fortaleza), responsável, prioridade e
+estimativa em cada tarefa. Não somar estimativa da história-pai às subtarefas.
+
+Itens de produto fora do compromisso ficam abertos com `backlog:produto`, sem
+Sprint 3/Final acadêmica. Manter preferencialmente um item principal em
+execução. Bloqueios devem estar nas relações de dependência das issues.
+
+A exceção de novos testes da Sprint 1 acabou: nesta sprint são obrigatórios
+unitários de domínio, integração com PostgreSQL real, arquitetura e fluxo gRPC,
+verdes localmente e no CI. O smoke existente não substitui essas suítes.
+
+Proteções de `main` e `develop` devem exigir PR, checks verdes e conversas
+resolvidas, sem aprovação externa obrigatória no projeto individual.
+Não usar bypass de administrador como fluxo normal.

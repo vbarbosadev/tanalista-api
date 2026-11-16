@@ -37,3 +37,16 @@ Nesta etapa, a IA auxiliou na conferência do fechamento da Sprint 1, na correç
 da composição individual, neste registro de uso e na inclusão do vídeo informado
 pelo responsável. A atualização documental não representa nova execução dos
 testes nem avaliação do conteúdo do vídeo.
+
+## Atualização de 16/11/2026 — planejamento e GitHub da Sprint 2
+
+O assistente OpenAI no OpenCode auxiliou na leitura dos guias atuais da
+disciplina, inspeção do código e do GitHub, definição de escopo, organização
+de milestone, issues, dependências e Project, sincronização das branches por
+PR e preparação deste fluxo e dos templates. As operações foram autorizadas
+pelo responsável após apresentação do plano.
+
+Não foi implementado o serviço Go, autenticação, suíte nova de testes ou
+deploy nesta etapa. Os resultados de Actions são evidências da suíte existente,
+não comprovação dos critérios ainda pendentes da Sprint 2. Autorrevisão apoiada
+por IA não é aprovação externa nem contribuição de outro integrante.

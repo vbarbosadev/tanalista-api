@@ -91,6 +91,7 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Usuários e jornadas](docs/jornadas.md)
 - [Contrato inicial da API](docs/contrato-api.md)
 - [Processo de desenvolvimento](docs/processo.md)
+- [Sprint 2: escopo, tarefas, dependências e fluxo de entrega](docs/SPRINT-2.md)
 - [Requisitos iniciais](docs/requisitos.md)
 - [Domínio: modelo implementado e planejado](docs/dominio.md)
 - [Arquitetura do CRUD](docs/arquitetura.md)
@@ -105,9 +106,13 @@ Sprint 1: CRUD de Lista e Item, PostgreSQL/Flyway, domínio independente,
 validação RFC 9457 e OpenAPI publicados em `main` pelo
 [PR #53](https://github.com/vbarbosadev/tanalista-api/pull/53), com
 [CI verde no commit técnico `cc74acc`](https://github.com/vbarbosadev/tanalista-api/actions/runs/38740126762).
-Entrega individual de Vinicius, sem revisão externa. Vídeo disponível no YouTube;
-a publicação deste link e da documentação atualizada ainda precisa ser integrada
-à entrega em `main`, com nova CI e atualização das issues
-[#35](https://github.com/vbarbosadev/tanalista-api/issues/35) e
+Entrega individual de Vinicius, sem revisão externa. O link do vídeo e a
+documentação individual já estão em `main` desde `57b4759`, com CI aprovada.
+Acesso anônimo e conteúdo do vídeo ainda precisam de conferência na
 [#36](https://github.com/vbarbosadev/tanalista-api/issues/36).
-Autenticação real, compras e gRPC ficam para entregas posteriores.
+
+Sprint 2 é a entrega final, em **30/11/2026, 23:59**: Go/gRPC, testes,
+Compose reproduzível e API pública segura com banco gerenciado.
+O [plano da sprint](docs/SPRINT-2.md) distingue tarefas planejadas de entregas
+validadas. Compras e compartilhamento permanecem no backlog do produto.
+Go/gRPC e autenticação pública ainda não estão implementados.
