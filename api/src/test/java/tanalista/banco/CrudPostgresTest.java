@@ -1,7 +1,6 @@
 package tanalista.banco;
 
 import io.agroal.api.AgroalDataSource;
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import jakarta.inject.Inject;
@@ -18,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 @TestProfile(PostgresProfile.class)
-@QuarkusTestResource(value = PostgresResource.class, restrictToAnnotatedClass = true)
 class CrudPostgresTest {
     private static final String ROOT = "/api/v1/listas";
     @Inject AgroalDataSource datasource;

@@ -34,7 +34,7 @@ com banco real é descrita abaixo.
 ## PostgreSQL real — #60
 
 `CrudPostgresTest` é `@QuarkusTest` com perfil isolado e PostgreSQL 16
-descartável via Testcontainers. Usa o recurso anotado nessa classe, sem herdar
+descartável via Testcontainers. Declara o recurso explicitamente no perfil, sem herdar
 o servidor gRPC de outros testes. A dependência Testcontainers segue o BOM Quarkus.
 
 ```sh
