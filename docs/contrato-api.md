@@ -3,7 +3,12 @@
 Contrato entre o aplicativo TáNaLista e a API Java/Quarkus. Na Sprint 1 estão
 implementados somente os recursos **Lista e Item** abaixo. OpenAPI é gerado do
 código em `/q/openapi`; Swagger UI em `/q/swagger-ui/`, inclusive no JAR empacotado.
-Usuários, acessos, compras e código de barras permanecem planejamento futuro.
+Usuários, acessos e compras permanecem planejamento futuro.
+
+Atualização da Sprint 2: a consulta `GET /api/v1/codigos-barras/{codigo}` passa
+a usar o contrato gRPC v1. É somente leitura, protegida pelo mesmo modo local
+de identidade (não autenticação pública), e não cria Item. A implementação do
+CRUD permanece independente do Go.
 
 ## Recorte implementado na Sprint 1
 
@@ -161,7 +166,23 @@ inválido, produto não encontrado, indisponibilidade do provedor e deadline exc
 O [contrato Protobuf v1 e sua semântica](../protos/README.md) são a fonte do
 contrato interno. Os nomes anteriores `BarcodeRequest`/`ProductMetadata` eram
 ilustrativos; os nomes concretos seguem Buf STANDARD. Stubs já são gerados,
-mas o endpoint e o fluxo gRPC ainda dependem da implementação das próximas issues.
+e o endpoint usa uma porta de domínio implementada pelo adaptador gRPC.
+
+### Consulta REST da Sprint 2
+
+- 200: `codigo`, `nome`, `fonte`; `marca`, `categoria` e `unidade` opcionais
+  desconhecidos retornam nulos. Não há ID de Item, catálogo nem escrita.
+- 422: formato/checksum inválido; 404: produto sem metadados utilizáveis.
+- 503: Go/provedor indisponível, cancelamento remoto ou identidade local
+  desabilitada; 504: prazo excedido; 500: falha inesperada sem detalhes externos.
+- Cada RPC usa deadline configurável (padrão 2500 ms; limites 1 a 10000 ms).
+  Não há fallback de sucesso inventado nem retry da aplicação.
+- Configuração: `BARCODE_GRPC_HOST`, `BARCODE_GRPC_PORT`, `BARCODE_TIMEOUT_MS`.
+  Transporte plaintext apenas em rede confiável. Ausência do Go não impede
+  iniciar a API nem operar listas/itens; a consulta é acessória.
+- Cancelamento do chamador encerra a chamada quando o transporte o observa;
+  não se promete entregar uma resposta HTTP a um cliente já desconectado.
+- `/q/health/ready` verifica a prontidão da API/banco, sem depender da saúde do Go.
 
 ## Erros
 

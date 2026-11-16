@@ -1,7 +1,7 @@
 # ADR 0001 — Serviço Go de consulta por código de barras
 
 - **Data:** 16/11/2026.
-- **Status:** aceita como decisão de arquitetura; implementação pendente.
+- **Status:** aceita como decisão de arquitetura; evolução registrada nas issues.
 - **Responsável:** Vinicius Barbosa (`@vbarbosadev`).
 - **Issue:** [#56](https://github.com/vbarbosadev/tanalista-api/issues/56).
 - **História:** [#23](https://github.com/vbarbosadev/tanalista-api/issues/23).

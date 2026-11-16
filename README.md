@@ -37,7 +37,7 @@ docs/       Proposta e documentação do projeto
 O serviço Quarkus é responsável pelo domínio, persistência, autenticação, autorização e
 orquestração dos casos de uso. O primeiro serviço Go, `barcode-lookup-service`, consulta
 fontes externas por código de barras e normaliza metadados usando concorrência, timeout e
-cancelamento. A comunicação interna será feita por gRPC a partir da Sprint 2.
+cancelamento. A comunicação interna usa o contrato gRPC v1 da Sprint 2.
 
 ## Execução local
 
@@ -116,4 +116,6 @@ Sprint 2 é a entrega final, em **30/11/2026, 23:59**: Go/gRPC, testes,
 Compose reproduzível e API pública segura com banco gerenciado.
 O [plano da sprint](docs/SPRINT-2.md) distingue tarefas planejadas de entregas
 validadas. Compras e compartilhamento permanecem no backlog do produto.
-Go/gRPC e autenticação pública ainda não estão implementados.
+Consulta Go/gRPC implementada; autenticação pública, deploy e a suíte completa
+do CRUD ainda têm tarefas pendentes. A consulta não cria itens automaticamente
+e sua indisponibilidade não impede a inclusão manual.

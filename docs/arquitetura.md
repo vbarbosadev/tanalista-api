@@ -21,5 +21,21 @@ fica isolado como legado, preservado para não descartar trabalho ou dados. Não
 como exemplo da separação nova. Uma retirada futura exige migração e decisão
 explícita da equipe. A migração V1 não deve ser editada.
 
-Conferência manual nesta sprint: inspecionar os imports de `dominio` e `aplicacao`.
-Teste automatizado de arquitetura e novos testes obrigatórios ficam para Sprint 2.
+## Verificação automática
+
+`ArquiteturaTest` usa ArchUnit e examina as classes de produção de `dominio` e
+`aplicacao`, sem aceitar conjunto vazio. Proíbe dependência de framework,
+persistência/SQL, rede, gRPC/Protobuf, adaptadores, configuração e stubs gerados.
+Executa no `mvn test` normal, localmente e no CI.
+
+Controle negativo realizado em 16/11/2026: um campo `io.grpc.Channel` foi
+inserido temporariamente em uma classe de domínio. A regra falhou identificando
+exatamente essa dependência; a classe foi removida antes do commit e
+`mvn clean test` passou. Não há código violador mantido na produção.
+
+O adaptador `ConsultaBarcodeGrpc` implementa a porta `ConsultaCodigoBarras`.
+O domínio recebe `MetadadosProduto` e erros próprios, nunca stubs ou status gRPC.
+O HTTP traduz esses erros em Problem Details; a consulta não escreve no banco.
+
+Testes específicos de regras do CRUD e integração com PostgreSQL real
+continuam acompanhados em #59 e #60; os testes de gRPC não os substituem.
