@@ -1,0 +1,59 @@
+name: Tarefa técnica
+description: Trabalho rastreável com critérios, dependências e evidências.
+title: "[Sprint 2] "
+labels: ["type:task"]
+assignees: ["vbarbosadev"]
+body:
+  - type: textarea
+    id: objetivo
+    attributes:
+      label: Objetivo e limites
+      description: Explique o resultado esperado e o que não faz parte desta tarefa.
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Critérios de aceite
+      description: Use itens verificáveis; inclua falhas, testes e documentação pertinentes.
+      placeholder: "- [ ] Resultado observável e forma de comprová-lo."
+    validations:
+      required: true
+  - type: textarea
+    id: dependencias
+    attributes:
+      label: Dependências e referência
+      description: Cite issues, história-pai e tarefa T1–T12. Cadastre também blocked by.
+      placeholder: "Refs #N. Bloqueada por #N. Guia Tn."
+    validations:
+      required: true
+  - type: input
+    id: estimativa
+    attributes:
+      label: Estimativa
+      description: Pontos Fibonacci. Não contar novamente a história-pai e suas subtarefas.
+      placeholder: "1, 2, 3, 5 ou 8"
+    validations:
+      required: true
+  - type: input
+    id: meta
+    attributes:
+      label: Data-meta
+      placeholder: "AAAA-MM-DD"
+    validations:
+      required: true
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Plano de validação
+      description: Como comprovar a tarefa; ao concluir, anexar resultados reais no PR.
+    validations:
+      required: true
+  - type: checkboxes
+    id: planejamento
+    attributes:
+      label: Antes de mover para Ready
+      options:
+        - label: Milestone, Sprint, prioridade, estimativa e responsável definidos no GitHub.
+        - label: Dúvidas bloqueantes resolvidas e dependências registradas.
+        - label: Sei qual evidência é necessária antes de fechar por PR.
