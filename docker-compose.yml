@@ -2,9 +2,9 @@ services:
   postgres:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: ${DB_NAME:?Copie .env.example para .env}
-      POSTGRES_USER: ${DB_USER:?Defina DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME:-tanalista}
+      POSTGRES_USER: ${DB_USER:-tanalista}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-local-only-change-me}
     ports:
       - "127.0.0.1:${DB_PORT:-5432}:5432"
     healthcheck:
@@ -17,19 +17,38 @@ services:
 
   api:
     build:
-      context: api
-      dockerfile: src/main/docker/Dockerfile.jvm
+      context: .
+      dockerfile: api/src/main/docker/Dockerfile.jvm
     environment:
-      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DEV_IDENTITY_ENABLED: ${DEV_IDENTITY_ENABLED:-false}
+      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-tanalista}
+      DB_USER: ${DB_USER:-tanalista}
+      DB_PASSWORD: ${DB_PASSWORD:-local-only-change-me}
+      # Local-only Compose, loopback ports. The image defaults to disabled.
+      DEV_IDENTITY_ENABLED: ${DEV_IDENTITY_ENABLED:-true}
       DEV_USER_ID: ${DEV_USER_ID:-00000000-0000-0000-0000-000000000001}
+      BARCODE_GRPC_HOST: barcode
+      BARCODE_GRPC_PORT: 9090
+      BARCODE_TIMEOUT_MS: ${BARCODE_TIMEOUT_MS:-2500}
     ports:
       - "127.0.0.1:8081:8081"
     depends_on:
       postgres:
         condition: service_healthy
+      barcode:
+        condition: service_healthy
+
+  barcode:
+    build:
+      context: .
+      dockerfile: services/Dockerfile
+    environment:
+      BARCODE_GRPC_ADDR: ":9090"
+      OFF_BASE_URL: ${OFF_BASE_URL:-https://world.openfoodfacts.org}
+      OFF_TIMEOUT: ${OFF_TIMEOUT:-2s}
+      OFF_USER_AGENT: ${OFF_USER_AGENT:-TaNaLista/1.0 (https://github.com/vbarbosadev/tanalista-api)}
+    ports:
+      - "127.0.0.1:9090:9090"
+    stop_grace_period: 10s
 
 volumes:
   postgres_data:

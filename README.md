@@ -41,23 +41,33 @@ cancelamento. A comunicação interna usa o contrato gRPC v1 da Sprint 2.
 
 ## Execução local
 
-Pré-requisitos: [mise](https://mise.jdx.dev/getting-started.html) e Docker Compose
-(ou PostgreSQL 16+ instalado). O mise instala Java 21 e Go.
+Para rodar o sistema: **Docker com Compose v2**. Não é necessário instalar Java,
+Go, Buf ou Maven na máquina; os Dockerfiles geram/compilam dentro dos containers.
+O build inicial requer acesso aos registros de imagens e dependências.
 
-1. Copie `.env.example` para `.env` e ajuste as credenciais locais. Não versione
-   `.env`. O mise carrega esse arquivo para as tarefas; o Compose também o lê.
-2. Execute:
+Em um clone limpo, na raiz:
 
 ```bash
-mise install
-mise run build-api
-mise run up
+docker compose up --build
 ```
 
-O Compose sobe PostgreSQL e a API em `http://localhost:8081`. O Flyway aplica as
+O Compose sobe PostgreSQL, Go (`127.0.0.1:9090`) e API
+(`http://localhost:8081`), com health checks e dependências saudáveis.
+Em outro terminal, `docker compose ps` deve indicar serviços saudáveis.
+`/q/health/ready` é o health da API; o binário Go usa `-healthcheck`.
+O Flyway aplica as
 migrações em banco vazio e valida as existentes. O volume preserva os dados em
-reinícios; `mise run down` não remove o volume. Não altere migrações aplicadas.
+reinícios; `docker compose down` não remove o volume. Não altere migrações aplicadas.
 O esquema vem só do Flyway, nunca de geração Hibernate.
+
+O Compose usa padrões locais de demonstração, portas restritas a loopback e
+identidade fixa habilitada explicitamente. **Não é configuração de produção.**
+Opcionalmente copie `.env.example` para `.env` e ajuste valores; nunca versione
+o arquivo. Senhas padrão não são credenciais de um ambiente público.
+
+Para desenvolvimento fora dos containers, instale
+[mise](https://mise.jdx.dev/getting-started.html) e execute `mise install`
+(Java 21, Go 1.24, Buf 1.50 e Node 22).
 
 Para usar PostgreSQL já instalado, configure `DB_URL`, `DB_USER` e `DB_PASSWORD`
 no `.env` e execute `mise run dev`. Não inicie o banco do Compose na mesma porta.
@@ -69,7 +79,28 @@ perfil `dev`, mas fora dele exige `DEV_IDENTITY_ENABLED=true`. Use somente em
 ambiente confiável; Compose publica portas apenas no loopback. Não habilite em
 produção pública. Autenticação real será uma entrega posterior.
 
-Para reproduzir a CI: `mise run ci` (Java e Go; testes existentes preservados).
+Para testes: `mise run test-api` e `mise run test-go`.
+Java cobre contrato, REST/gRPC controlado e arquitetura; Go cobre domínio,
+adaptador HTTP e servidor gRPC. A suíte completa do CRUD com PostgreSQL continua
+na tarefa #60; o smoke existente não a substitui.
+
+Para reproduzir build/test/lint e sincronia de stubs: `mise run ci`.
+O job Compose adicional é reproduzido com:
+
+```sh
+docker compose -f docker-compose.yml -f compose.smoke.yml up -d --build --wait
+node scripts/smoke-sprint1.mjs
+node scripts/smoke-barcode.mjs
+docker compose -f docker-compose.yml -f compose.smoke.yml stop barcode
+node scripts/smoke-barcode.mjs --down
+node scripts/smoke-sprint1.mjs
+```
+
+O override usa fixture HTTP sintética em vez do OFF real; não é deploy.
+Não executar simultaneamente com outro Compose nas mesmas portas.
+Para encerrar, use `docker compose -f docker-compose.yml -f compose.smoke.yml down`.
+O diretório [services/](services/README.md) documenta variáveis, grpcurl e prazos;
+[protos/](protos/README.md) documenta geração e erros do contrato.
 
 Swagger UI: <http://localhost:8081/q/swagger-ui/>. OpenAPI gerado do código:
 <http://localhost:8081/q/openapi> (JSON com `?format=json`). Inclui os dois CRUDs,

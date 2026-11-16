@@ -1,0 +1,20 @@
+# CI-only HTTP dependency fixture. Not used by the default local Compose.
+services:
+  barcode:
+    environment:
+      OFF_BASE_URL: http://off-mock:4900
+    depends_on:
+      off-mock:
+        condition: service_healthy
+  off-mock:
+    image: node:22-alpine
+    command: ["node", "/fixture/default.js"]
+    environment:
+      PORT: 4900
+    volumes:
+      - ./postman/mocks/open-food-facts/default.js:/fixture/default.js:ro
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4900/api/v2/product/3017624010701.json?fields=product_name').then(r=>process.exit(r.status===200?0:1)).catch(()=>process.exit(1))"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
