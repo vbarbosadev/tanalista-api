@@ -66,3 +66,10 @@ semântica de erros, configuração Buf e geração de stubs Go/Java a partir de
 uma fonte única. Também apoiou testes de mensagens geradas e verificações de
 sincronia no CI. Isso não representa implementação do provedor ou do fluxo
 de consulta. Comandos e resultados executados são registrados no PR da tarefa.
+
+## Domínio Go — issue #28
+
+A IA auxiliou na validação EAN/UPC, definição da porta de consulta, erros
+nomeados, propagação de contexto e testes sem rede. A regra não importa HTTP,
+gRPC ou persistência. Resultados de teste e limites ficam no PR da tarefa;
+isso não comprova a implementação dos adaptadores.
