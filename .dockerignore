@@ -1,0 +1,10 @@
+.git
+.env
+**/.env*
+**/.certs
+.idea
+**/target
+services/build
+node_modules
+docs
+postman

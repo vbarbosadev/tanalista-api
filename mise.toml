@@ -67,7 +67,7 @@ description = "Confere stubs versionados contra geração reproduzível"
 run = "node scripts/check-generated.mjs"
 
 [tasks.up]
-description = "Inicia PostgreSQL e API (execute build-api antes)"
+description = "Compila nos containers e inicia PostgreSQL, Go e API"
 run = "docker compose up -d --build --wait"
 
 [tasks.down]

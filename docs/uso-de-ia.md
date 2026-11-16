@@ -99,3 +99,12 @@ ArchUnit: uma violação temporária com io.grpc.Channel foi detectada e removid
 seguida de execução limpa da suíte. O PostgreSQL do CRUD não foi substituído
 por esses testes: novas suítes específicas continuam em #59/#60. Não houve
 implantação pública ou autenticação real nesta etapa.
+
+## Ambiente Compose — issue #62
+
+A IA auxiliou nos builds multiestágio de API/Go, geração dentro dos containers,
+health checks, configuração local e no smoke REST -> Go -> HTTP controlado.
+A máquina de desenvolvimento não possui Docker: validação de build e Compose
+depende do Actions, com logs e resultado no PR. Os testes locais de linguagens
+e YAML não são apresentados como execução local de containers.
+O override HTTP usa dados sintéticos e não foi publicado como serviço.
