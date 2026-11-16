@@ -33,6 +33,10 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-grpc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-openapi</artifactId>
         </dependency>
         <dependency>
@@ -105,6 +109,15 @@
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${quarkus.platform.version}</version>
                 <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <properties>
+                                <quarkus.grpc.codegen.proto-directory>${project.basedir}/../protos</quarkus.grpc.codegen.proto-directory>
+                            </properties>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
