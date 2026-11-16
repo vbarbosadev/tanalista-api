@@ -11,6 +11,7 @@ jobs:
   ci:
     name: Build, test and lint
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,6 +21,15 @@ jobs:
 
       - name: Run CI tasks
         run: mise run ci
+      - name: Publish Java test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-test-reports
+          path: |
+            api/target/surefire-reports/
+            api/target/failsafe-reports/
+          if-no-files-found: warn
 
   sprint1-smoke:
     name: Compose, migrations and CRUD smoke

@@ -115,3 +115,12 @@ A IA auxiliou na escrita de testes JUnit puros de domínio/casos de uso e de
 presença de campos no adaptador PATCH, usando repositórios em memória e relógios
 fixos. Autorrevisão e resultados reais ficam no PR. Não são testes de banco e
 não comprovam persistência PostgreSQL ou autenticação pública.
+
+## Integração PostgreSQL — issue #60
+
+A IA apoiou a criação da suíte com Testcontainers, perfil Quarkus isolado,
+migrações Flyway e testes de CRUD, filtros, unicidade, concorrência e
+visibilidade. O recurso cria banco descartável e não aceita credenciais de
+banco existente. Nesta máquina sem Docker, compilação e testes unitários são
+evidência local; execução de banco depende dos resultados do CI/Codespaces
+registrados no PR. Não declarar testes de containers locais inexistentes.

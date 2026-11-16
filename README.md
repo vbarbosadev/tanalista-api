@@ -81,9 +81,10 @@ produção pública. Autenticação real será uma entrega posterior.
 
 Para testes: `mise run test-api` e `mise run test-go`.
 Detalhamento das suítes e limites: [docs/testes.md](docs/testes.md).
-Java cobre contrato, REST/gRPC controlado e arquitetura; Go cobre domínio,
-adaptador HTTP e servidor gRPC. A suíte completa do CRUD com PostgreSQL continua
-na tarefa #60; o smoke existente não a substitui.
+Java cobre domínio/casos de uso, PATCH, PostgreSQL real com Testcontainers,
+contrato, REST/gRPC controlado e arquitetura; Go cobre domínio, adaptador HTTP e
+servidor gRPC. Docker em execução é necessário para a suíte Java completa,
+inclusive no Codespaces. O smoke existente complementa, não substitui os testes.
 
 Para reproduzir build/test/lint e sincronia de stubs: `mise run ci`.
 O job Compose adicional é reproduzido com:
@@ -149,5 +150,5 @@ Compose reproduzível e API pública segura com banco gerenciado.
 O [plano da sprint](docs/SPRINT-2.md) distingue tarefas planejadas de entregas
 validadas. Compras e compartilhamento permanecem no backlog do produto.
 Consulta Go/gRPC implementada; autenticação pública, deploy e a suíte completa
-do CRUD ainda têm tarefas pendentes. A consulta não cria itens automaticamente
+do produto ainda têm tarefas pendentes. A consulta não cria itens automaticamente
 e sua indisponibilidade não impede a inclusão manual.
