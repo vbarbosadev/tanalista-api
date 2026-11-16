@@ -80,6 +80,7 @@ ambiente confiável; Compose publica portas apenas no loopback. Não habilite em
 produção pública. Autenticação real será uma entrega posterior.
 
 Para testes: `mise run test-api` e `mise run test-go`.
+Detalhamento das suítes e limites: [docs/testes.md](docs/testes.md).
 Java cobre contrato, REST/gRPC controlado e arquitetura; Go cobre domínio,
 adaptador HTTP e servidor gRPC. A suíte completa do CRUD com PostgreSQL continua
 na tarefa #60; o smoke existente não a substitui.

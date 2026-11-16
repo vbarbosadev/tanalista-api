@@ -108,3 +108,10 @@ A máquina de desenvolvimento não possui Docker: validação de build e Compose
 depende do Actions, com logs e resultado no PR. Os testes locais de linguagens
 e YAML não são apresentados como execução local de containers.
 O override HTTP usa dados sintéticos e não foi publicado como serviço.
+
+## Unitários do CRUD — issue #59
+
+A IA auxiliou na escrita de testes JUnit puros de domínio/casos de uso e de
+presença de campos no adaptador PATCH, usando repositórios em memória e relógios
+fixos. Autorrevisão e resultados reais ficam no PR. Não são testes de banco e
+não comprovam persistência PostgreSQL ou autenticação pública.
