@@ -150,12 +150,18 @@ e envia a criação do Item ao Quarkus pela operação de lista correspondente.
 O Quarkus chama o `barcode-lookup-service` por gRPC usando uma operação unária:
 
 ```text
-LookupProduct(BarcodeRequest) returns (ProductMetadata)
+BarcodeService.LookupProduct(LookupProductRequest) returns (LookupProductResponse)
 ```
 
-`BarcodeRequest` contém o código EAN/UPC. `ProductMetadata` contém código, nome, marca,
-categoria, unidade e fonte. A chamada sempre possui deadline. O Go diferencia código
+`LookupProductRequest` contém o código EAN-8, UPC-A ou EAN-13 como string.
+`LookupProductResponse` contém código, nome e fonte; marca, categoria e unidade
+são opcionais com presença explícita. A chamada sempre possui deadline. O Go diferencia código
 inválido, produto não encontrado, indisponibilidade do provedor e deadline excedido.
+
+O [contrato Protobuf v1 e sua semântica](../protos/README.md) são a fonte do
+contrato interno. Os nomes anteriores `BarcodeRequest`/`ProductMetadata` eram
+ilustrativos; os nomes concretos seguem Buf STANDARD. Stubs já são gerados,
+mas o endpoint e o fluxo gRPC ainda dependem da implementação das próximas issues.
 
 ## Erros
 

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+// Package v1 defines the internal, read-only barcode lookup contract.
+package tanalista.barcode.v1;
+
+option go_package = "github.com/vbarbosadev/tanalista-api/services/gen/tanalista/barcode/v1;barcodev1";
+option java_multiple_files = true;
+option java_package = "tanalista.contrato.barcode.v1";
+
+// BarcodeService provides optional product suggestions without persisting items.
+service BarcodeService {
+  // LookupProduct validates an EAN/UPC and returns available product metadata.
+  // Callers must set a deadline. Errors: INVALID_ARGUMENT, NOT_FOUND,
+  // UNAVAILABLE, DEADLINE_EXCEEDED and CANCELLED; never an empty success.
+  rpc LookupProduct(LookupProductRequest) returns (LookupProductResponse);
+}
+
+// LookupProductRequest identifies the product without losing leading zeroes.
+message LookupProductRequest {
+  // Code contains only ASCII digits: EAN-8, UPC-A (12) or EAN-13.
+  // UPC-E and GTIN-14 are not supported in v1; the check digit must be valid.
+  string code = 1;
+}
+
+// LookupProductResponse contains suggestions, not an item or a stored catalogue.
+message LookupProductResponse {
+  // Code is the validated request code, preserving leading zeroes.
+  string code = 1;
+  // Name is a non-empty product name. A nameless product is not a usable match.
+  string name = 2;
+  // Brand is absent when the provider does not supply a usable value.
+  optional string brand = 3;
+  // Category is a provider label, not a guaranteed application taxonomy.
+  optional string category = 4;
+  // Unit is a unit label when available; absent means unknown, not "UNIDADE".
+  optional string unit = 5;
+  // Source identifies the provider, initially "open-food-facts".
+  string source = 6;
+}

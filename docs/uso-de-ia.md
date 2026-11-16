@@ -58,3 +58,11 @@ com a alternativa dentro do Quarkus, na delimitação do provedor inicial e na
 separação entre decisão arquitetural e implementação pendente. Também apoiou
 lint documental, autorrevisão e condução do PR conforme autorização do responsável.
 Não houve consulta real ao provedor nem implementação de Go/gRPC nesta tarefa.
+
+## Contrato Protobuf — issue #26
+
+O assistente auxiliou na definição do contrato v1, presença de campos opcionais,
+semântica de erros, configuração Buf e geração de stubs Go/Java a partir de
+uma fonte única. Também apoiou testes de mensagens geradas e verificações de
+sincronia no CI. Isso não representa implementação do provedor ou do fluxo
+de consulta. Comandos e resultados executados são registrados no PR da tarefa.
