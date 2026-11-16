@@ -124,3 +124,12 @@ visibilidade. O recurso cria banco descartável e não aceita credenciais de
 banco existente. Nesta máquina sem Docker, compilação e testes unitários são
 evidência local; execução de banco depende dos resultados do CI/Codespaces
 registrados no PR. Não declarar testes de containers locais inexistentes.
+
+## Ambiente Codespaces — issue #79
+
+Após orientação explícita do responsável para executar o projeto no Codespaces,
+a IA preparou devcontainer, scripts e validação automatizada do mesmo ambiente
+no Actions. Não criou Codespace na conta do usuário, não consumiu sua quota de
+Codespaces, não publicou portas e não escolheu provedor de identidade.
+A orientação foi registrada nas #64/#65, mantendo a distinção entre ambiente
+de desenvolvimento e os requisitos de implantação pública da rubrica.

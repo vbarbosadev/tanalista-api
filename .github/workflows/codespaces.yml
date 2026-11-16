@@ -1,0 +1,23 @@
+name: Codespaces
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  devcontainer:
+    name: Codespaces environment
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and exercise the Codespaces devcontainer
+        uses: devcontainers/ci@v0.3
+        with:
+          push: never
+          runCmd: |
+            bash .devcontainer/setup.sh
+            bash .devcontainer/verify.sh
