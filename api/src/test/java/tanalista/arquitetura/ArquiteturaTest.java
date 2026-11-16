@@ -13,7 +13,8 @@ class ArquiteturaTest {
             noClasses().that().resideInAnyPackage("tanalista.dominio..", "tanalista.aplicacao..")
                     .should().dependOnClassesThat().resideInAnyPackage(
                             "jakarta..", "javax.persistence..", "javax.sql..", "java.sql..", "java.net..",
-                            "io.quarkus..", "org.hibernate..", "io.grpc..", "com.google.protobuf..",
+                            "io.quarkus..", "org.hibernate..", "org.postgresql..", "io.agroal..",
+                            "io.grpc..", "com.google.protobuf..",
                             "tanalista.adaptadores..", "tanalista.config..", "tanalista.contrato..");
 
     @Test
