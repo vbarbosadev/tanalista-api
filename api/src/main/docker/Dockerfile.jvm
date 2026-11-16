@@ -1,6 +1,8 @@
 # Build from the repository root; no host Maven, Java or pre-existing target.
-FROM eclipse-temurin:21-jdk-alpine AS build
-RUN apk add --no-cache unzip wget
+# Maven's native protoc/grpc-java plugins require glibc, not Alpine's musl.
+FROM eclipse-temurin:21-jdk-jammy AS build
+RUN apt-get update && apt-get install -y --no-install-recommends unzip wget \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /workspace
 COPY api/ ./api/
 COPY protos/ ./protos/
