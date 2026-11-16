@@ -90,3 +90,12 @@ health/reflection e encerramento gracioso limitado. Testes com bufconn,
 health check do binário e chamadas grpcurl ao processo local foram usados,
 com o provedor apontado para fixture HTTP. Isso não comprova resposta de um
 provedor real nem implantação pública; evidências e CI ficam no PR.
+
+## Integração Quarkus e arquitetura — issues #27 e #61
+
+A IA apoiou porta de domínio, adaptador gRPC com deadline, endpoint REST,
+tradução de erros e testes contra servidor gRPC controlado. Também apoiou
+ArchUnit: uma violação temporária com io.grpc.Channel foi detectada e removida,
+seguida de execução limpa da suíte. O PostgreSQL do CRUD não foi substituído
+por esses testes: novas suítes específicas continuam em #59/#60. Não houve
+implantação pública ou autenticação real nesta etapa.

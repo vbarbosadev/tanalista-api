@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.*;
 import jakarta.ws.rs.ext.*;
 import org.jboss.logging.Logger;
 import tanalista.dominio.ErroDominio;
+import tanalista.dominio.ErroConsultaCodigoBarras;
 
 @Provider
 public class ProblemMapper implements ExceptionMapper<Exception> {
@@ -17,7 +18,22 @@ public class ProblemMapper implements ExceptionMapper<Exception> {
     public Response toResponse(Exception erro) {
         int status;
         String detalhe;
-        if (erro instanceof ErroDominio dominio) {
+        if (erro instanceof ErroConsultaCodigoBarras consulta) {
+            status = switch (consulta.tipo()) {
+                case INVALIDO -> 422;
+                case AUSENTE -> 404;
+                case INDISPONIVEL -> 503;
+                case PRAZO_EXCEDIDO -> 504;
+                case INTERNO -> 500;
+            };
+            detalhe = switch (consulta.tipo()) {
+                case INVALIDO -> "Código de barras inválido.";
+                case AUSENTE -> "Produto não encontrado nas fontes externas.";
+                case INDISPONIVEL -> "Consulta indisponível. Você pode adicionar o item manualmente.";
+                case PRAZO_EXCEDIDO -> "Prazo da consulta excedido. Você pode adicionar o item manualmente.";
+                case INTERNO -> "Não foi possível consultar o produto.";
+            };
+        } else if (erro instanceof ErroDominio dominio) {
             status = switch (dominio.tipo()) {
                 case ENTRADA_INVALIDA -> 422;
                 case NAO_ENCONTRADO -> 404;
@@ -47,7 +63,7 @@ public class ProblemMapper implements ExceptionMapper<Exception> {
             status = 500;
             detalhe = "Erro interno. Tente novamente mais tarde.";
         }
-        if (status >= 500 && status != 503) LOG.error("Falha ao processar requisição HTTP", erro);
+        if (status >= 500 && status != 503 && status != 504) LOG.error("Falha ao processar requisição HTTP", erro);
         var resposta = ProblemResponses.criar(status, detalhe, uri.getAbsolutePath().getPath());
         if (erro instanceof WebApplicationException http) {
             // Preserva cabeçalhos de protocolo, nunca entidades de erro de terceiros.
