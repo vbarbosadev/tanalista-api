@@ -1,0 +1,5 @@
+simulation: barcode-provider
+routing: path
+mocks:
+  - routeKey: off
+    path: ../mocks/open-food-facts/default.js

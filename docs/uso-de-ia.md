@@ -73,3 +73,12 @@ A IA auxiliou na validação EAN/UPC, definição da porta de consulta, erros
 nomeados, propagação de contexto e testes sem rede. A regra não importa HTTP,
 gRPC ou persistência. Resultados de teste e limites ficam no PR da tarefa;
 isso não comprova a implementação dos adaptadores.
+
+## Provedor HTTP — issue #57
+
+A IA consultou Orbit/documentação do Open Food Facts, implementou o adaptador e
+apoiou testes HTTP controlados e execução contra simulação Postman local.
+A busca por mock do proprietário não pôde prosseguir sem login; a fixture foi
+criada da documentação com dados sintéticos. Não houve consulta de produto real
+nem publicação da simulação. Limitações de cobertura, quota e licença estão
+documentadas; resultados reais e CI ficam no PR.
