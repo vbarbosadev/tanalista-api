@@ -6,6 +6,7 @@ import io.quarkus.test.junit.TestProfile;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 @TestProfile(PostgresProfile.class)
+@Timeout(30)
 class CrudPostgresTest {
     private static final String ROOT = "/api/v1/listas";
     @Inject AgroalDataSource datasource;
