@@ -125,12 +125,14 @@ por autorização, persistência e regras do domínio após o usuário confirmar
 | Nome | Matrícula | Conta GitHub | Papel em DIM0547 |
 | --- | --- | --- | --- |
 | Vinicius Barbosa | 20230051760 | vbarbosadev | Desenvolvedor principal e responsável pelo backend |
-| Thallys | 20240011552 | thallystorres | Apoio na validação do domínio e dos critérios de aceitação |
-| Ivis | 20220028454 | ivixs | Apoio na organização do backlog e do processo |
+
+Projeto individual em DIM0547, com Vinicius Barbosa como único integrante.
+A equipe do aplicativo em DIM0524 é distinta da composição desta entrega de backend.
 
 ## 8. Coorte e integração
 
-**Coorte de apresentação:** B - online.
+As coortes de apresentação foram substituídas pelas daily meetings, conforme a
+sistemática atual da disciplina.
 
 O aplicativo cliente é desenvolvido em **DIM0524 - Desenvolvimento de Sistemas para
 Dispositivos Móveis** e consome esta API. O mesmo produto é usado em **DIM0510 -
