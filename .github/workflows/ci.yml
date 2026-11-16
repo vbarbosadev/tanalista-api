@@ -20,6 +20,15 @@ jobs:
 
       - name: Run CI tasks
         run: mise run ci
+      - name: Publish Java test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-test-reports
+          path: |
+            api/target/surefire-reports/
+            api/target/failsafe-reports/
+          if-no-files-found: warn
 
   sprint1-smoke:
     name: Compose, migrations and CRUD smoke
