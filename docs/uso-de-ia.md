@@ -82,3 +82,11 @@ A busca por mock do proprietário não pôde prosseguir sem login; a fixture foi
 criada da documentação com dados sintéticos. Não houve consulta de produto real
 nem publicação da simulação. Limitações de cobertura, quota e licença estão
 documentadas; resultados reais e CI ficam no PR.
+
+## Servidor gRPC — issue #58
+
+A IA apoiou a implementação do adaptador gRPC, composição do processo Go,
+health/reflection e encerramento gracioso limitado. Testes com bufconn,
+health check do binário e chamadas grpcurl ao processo local foram usados,
+com o provedor apontado para fixture HTTP. Isso não comprova resposta de um
+provedor real nem implantação pública; evidências e CI ficam no PR.
