@@ -95,6 +95,7 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Requisitos iniciais](docs/requisitos.md)
 - [Domínio: modelo implementado e planejado](docs/dominio.md)
 - [Arquitetura do CRUD](docs/arquitetura.md)
+- [ADR 0001: serviço Go de consulta por código de barras](docs/decisoes/0001-servico-go-codigo-de-barras.md)
 - [Evidências, validação e fechamento da Sprint 1](docs/entrega-sprint1.md)
 - [Registro de uso de IA como auxílio](docs/uso-de-ia.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)

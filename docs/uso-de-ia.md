@@ -50,3 +50,11 @@ Não foi implementado o serviço Go, autenticação, suíte nova de testes ou
 deploy nesta etapa. Os resultados de Actions são evidências da suíte existente,
 não comprovação dos critérios ainda pendentes da Sprint 2. Autorrevisão apoiada
 por IA não é aprovação externa nem contribuição de outro integrante.
+
+## ADR do serviço Go — issue #56
+
+Em 16/11/2026, o assistente auxiliou na elaboração da ADR 0001, na comparação
+com a alternativa dentro do Quarkus, na delimitação do provedor inicial e na
+separação entre decisão arquitetural e implementação pendente. Também apoiou
+lint documental, autorrevisão e condução do PR conforme autorização do responsável.
+Não houve consulta real ao provedor nem implementação de Go/gRPC nesta tarefa.
