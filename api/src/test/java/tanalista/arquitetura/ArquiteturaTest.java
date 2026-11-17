@@ -16,6 +16,7 @@ class ArquiteturaTest {
                             "io.quarkus..", "org.hibernate..", "org.postgresql..", "io.agroal..",
                             "io.grpc..", "com.google.protobuf..",
                             "io.smallrye.jwt..", "org.eclipse.microprofile.jwt..",
+                            "org.bouncycastle..",
                             "tanalista.adaptadores..", "tanalista.config..", "tanalista.contrato..");
 
     @Test

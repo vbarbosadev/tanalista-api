@@ -15,6 +15,8 @@ public class ConfiguracaoAutenticacao {
     boolean habilitada;
     @ConfigProperty(name = "tanalista.dev-identity.enabled", defaultValue = "false")
     boolean desenvolvimento;
+    @ConfigProperty(name = "tanalista.auth.local-enabled", defaultValue = "false")
+    boolean local;
     @ConfigProperty(name = "mp.jwt.verify.issuer")
     Optional<String> emissor;
     @ConfigProperty(name = "mp.jwt.verify.audiences")
@@ -26,9 +28,18 @@ public class ConfiguracaoAutenticacao {
 
     boolean desenvolvimento() { return desenvolvimento; }
 
+    public boolean local() { return local; }
+
     void iniciar(@Observes StartupEvent evento) {
+        if (local && !habilitada) {
+            throw new IllegalStateException("LOCAL_AUTH_ENABLED exige AUTH_ENABLED=true.");
+        }
+        if (local && audiencia.orElse("").contains(",")) {
+            throw new IllegalStateException("Autenticação local exige uma audiência única.");
+        }
+        boolean chaveLocal = local && chaves.orElse("").startsWith("file:");
         validar(habilitada, desenvolvimento, emissor.orElse(""), audiencia.orElse(""),
-                chaves.orElse(""), LaunchMode.current() == LaunchMode.TEST);
+                chaves.orElse(""), chaveLocal || LaunchMode.current() == LaunchMode.TEST);
     }
 
     static void validar(boolean habilitada, boolean desenvolvimento, String emissor,

@@ -18,7 +18,10 @@ public class ProblemMapper implements ExceptionMapper<Exception> {
     public Response toResponse(Exception erro) {
         int status;
         String detalhe;
-        if (erro instanceof ErroConsultaCodigoBarras consulta) {
+        if (erro instanceof tanalista.dominio.CredenciaisInvalidas) {
+            status = 401;
+            detalhe = "E-mail ou senha inválidos.";
+        } else if (erro instanceof ErroConsultaCodigoBarras consulta) {
             status = switch (consulta.tipo()) {
                 case INVALIDO -> 422;
                 case AUSENTE -> 404;
@@ -57,7 +60,8 @@ public class ProblemMapper implements ExceptionMapper<Exception> {
                 case 405 -> "Método HTTP não permitido.";
                 case 406 -> "Formato de resposta não aceito.";
                 case 415 -> "Utilize Content-Type application/json.";
-                case 503 -> "Identidade de desenvolvimento desabilitada. Serviço indisponível neste modo.";
+                case 429 -> "Muitas tentativas. Tente novamente após o prazo indicado.";
+                case 503 -> "Autenticação indisponível neste modo.";
                 default -> "Não foi possível processar a requisição.";
             };
         } else {
@@ -66,6 +70,8 @@ public class ProblemMapper implements ExceptionMapper<Exception> {
         }
         if (status >= 500 && status != 503 && status != 504) LOG.error("Falha ao processar requisição HTTP", erro);
         var resposta = ProblemResponses.criar(status, detalhe, uri.getAbsolutePath().getPath());
+        if (status == 401) resposta = Response.fromResponse(resposta)
+                .header("WWW-Authenticate", "Bearer").header("Cache-Control", "no-store").build();
         if (erro instanceof WebApplicationException http) {
             // Preserva cabeçalhos de protocolo, nunca entidades de erro de terceiros.
             var builder = Response.fromResponse(resposta);
