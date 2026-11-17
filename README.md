@@ -134,6 +134,7 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Domínio: modelo implementado e planejado](docs/dominio.md)
 - [Arquitetura do CRUD](docs/arquitetura.md)
 - [ADR 0001: serviço Go de consulta por código de barras](docs/decisoes/0001-servico-go-codigo-de-barras.md)
+- [ADR 0002: ambiente no GitHub Codespaces](docs/decisoes/0002-ambiente-codespaces.md)
 - [Evidências, validação e fechamento da Sprint 1](docs/entrega-sprint1.md)
 - [Registro de uso de IA como auxílio](docs/uso-de-ia.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)
@@ -157,3 +158,29 @@ validadas. Compras e compartilhamento permanecem no backlog do produto.
 Consulta Go/gRPC implementada; autenticação pública, deploy e a suíte completa
 do produto ainda têm tarefas pendentes. A consulta não cria itens automaticamente
 e sua indisponibilidade não impede a inclusão manual.
+
+## Teste de instalação por terceiro
+
+Pendente na [#66](https://github.com/vbarbosadev/tanalista-api/issues/66).
+Uma pessoa diferente do autor deve usar somente estas instruções:
+
+1. Inicie a contagem de tempo e abra um Codespace novo na branch `develop`.
+2. Aguarde o setup e execute `docker compose up --build --wait -d`.
+3. Confira `docker compose ps`; mantenha a porta 8081 privada e abra
+   `/q/health/ready` e `/q/swagger-ui/` pela aba **Ports**.
+4. Pelo Swagger, crie uma lista, adicione um item, consulte e exclua ambos.
+5. Registre na #66: pessoa, data, commit (`git rev-parse HEAD`), configuração
+   do Codespace, tempo total (incluindo provisionamento), erros e ajuda recebida.
+   A meta é menos de 10 minutos; se exceder, registre o tempo real e a causa.
+6. Execute `docker compose down` e pare o Codespace para limitar a quota.
+
+Não compartilhar credenciais ou dados reais. O relato do autor na #79 não
+substitui esse teste por outra pessoa.
+
+## Licença
+
+O código e a documentação originais de Vinicius Barbosa são disponibilizados
+sob a [licença MIT](LICENSE), conforme autorização do responsável.
+Dependências, arquivos gerados com avisos próprios e materiais de terceiros,
+incluindo os materiais da disciplina em `docs/web2-DIM0547/`, não são
+relicenciados por esta declaração: seus avisos e termos originais prevalecem.

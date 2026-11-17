@@ -140,3 +140,13 @@ evidência como relato manual, sem inventar hash, logs ou captura.
 A ADR 0002 registra a decisão já adotada de Codespaces; autenticação,
 implantação pública, licença, teste por terceiro, daily e vídeo não foram
 declarados concluídos.
+
+## Licença e preparação do teste por terceiro — issue #66
+
+O responsável autorizou explicitamente MIT para o código de sua autoria,
+preservando avisos e licenças de terceiros. A IA preparou LICENSE e a
+delimitação no README, sem relicenciar materiais da disciplina ou dependências.
+O README inclui roteiro e registro de tempo para teste por outra pessoa;
+preparar instruções não significa que esse teste já foi realizado.
+O responsável ainda não recebeu confirmação docente sobre GHCR e dispensa
+de API pública/Neon; #63/#65 continuam pendentes nesses pontos.
