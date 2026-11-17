@@ -135,6 +135,7 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Arquitetura do CRUD](docs/arquitetura.md)
 - [ADR 0001: serviço Go de consulta por código de barras](docs/decisoes/0001-servico-go-codigo-de-barras.md)
 - [ADR 0002: ambiente no GitHub Codespaces](docs/decisoes/0002-ambiente-codespaces.md)
+- [Publicação de imagens no GHCR após integração em main](docs/imagens.md)
 - [Evidências, validação e fechamento da Sprint 1](docs/entrega-sprint1.md)
 - [Registro de uso de IA como auxílio](docs/uso-de-ia.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)
