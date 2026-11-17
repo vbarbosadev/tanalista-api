@@ -49,3 +49,8 @@ services/build/
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
+# Signing keys must be supplied outside Git.
+*.pem
+*.key
+*.p12
+*.pfx

@@ -127,6 +127,10 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 
 ## Documentação e processo
 
+Cadastro aberto e login com e-mail/senha: [configurar autenticação local](docs/autenticacao-local.md).
+Esse modo exige chaves RSA persistentes fora do Git, `AUTH_ENABLED=true`,
+`LOCAL_AUTH_ENABLED=true` e `DEV_IDENTITY_ENABLED=false`. E-mail não é verificado.
+
 - [Proposta do backend](docs/proposta.md)
 - [Proposta do aplicativo](docs/tanalista/proposta.md)
 - [Usuários e jornadas](docs/jornadas.md)
@@ -141,6 +145,7 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [Publicação de imagens no GHCR após integração em main](docs/imagens.md)
 - [Autenticação Bearer JWT e limites da integração OIDC](docs/autenticacao.md)
 - [ADR 0003: identidade externa e autorização por dono](docs/decisoes/0003-identidade-jwt.md)
+- [ADR 0004: cadastro aberto e login locais](docs/decisoes/0004-cadastro-login-local.md)
 - [Evidências, validação e fechamento da Sprint 1](docs/entrega-sprint1.md)
 - [Registro de uso de IA como auxílio](docs/uso-de-ia.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)

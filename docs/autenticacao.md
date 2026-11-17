@@ -1,5 +1,11 @@
 # Autenticação da API por Bearer JWT
 
+Este documento descreve o modo **externo**, com `LOCAL_AUTH_ENABLED=false`.
+Por decisão posterior do responsável, o modo próprio com cadastro e login
+também está disponível: [autenticacao-local.md](autenticacao-local.md) e ADR 0004.
+Nesse modo a chave pública é um arquivo PEM e o subject é o UUID do usuário.
+Não confundir os requisitos ou migrar dados automaticamente entre os modos.
+
 ## Recorte
 
 A API é um resource server: valida access tokens JWT RS256 emitidos por

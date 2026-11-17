@@ -174,3 +174,15 @@ e testes RSA efêmeros, sem chaves reais, login ou alteração no mobile.
 Documentação distingue JWT resource server de implementação completa OIDC.
 Testes HTTP usam repositórios em memória; não alegam validação de provedor real,
 rotação remota, Neon ou implantação pública.
+
+## Cadastro aberto próprio — issue #64
+
+O responsável alterou a decisão para cadastro aberto somente com e-mail/senha,
+sem provedor externo e mantendo Codespaces temporariamente. A IA implementou
+persistência de usuários/Flyway V4, Argon2id com Bouncy Castle, emissão JWT
+local e proteção limitada contra tentativas repetidas, preservando o modo
+privado anterior. O plano foi autorizado antes da implementação.
+Chaves reais não foram geradas, lidas ou versionadas, e Neon não foi acessado.
+Testes usam senhas fictícias, RSA efêmero e PostgreSQL descartável no CI.
+Recuperação de senha, e-mail verificado e revogação imediata ficam fora do
+recorte; a hospedagem pública exigida pela rubrica não foi declarada entregue.

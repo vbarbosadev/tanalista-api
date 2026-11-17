@@ -36,7 +36,9 @@ public class IdentidadeAtual {
         }
         try {
             var jwt = parser.parse(authorization.substring(7).strip());
-            verificado = IdentificadorExterno.de(jwt.getIssuer(), jwt.getSubject());
+            verificado = configuracao.local()
+                    ? UUID.fromString(jwt.getSubject())
+                    : IdentificadorExterno.de(jwt.getIssuer(), jwt.getSubject());
             return verificado;
         } catch (ParseException | IllegalArgumentException invalido) {
             // Do not log or expose the token, claims, key URL or verification failure.

@@ -216,6 +216,11 @@ Compra é transacional e impede novos registros após o estado `FINALIZADA`.
 
 ## Autenticação adicionada na Sprint 2
 
+Atualização: cadastro aberto próprio foi autorizado posteriormente.
+`POST /api/v1/auth/cadastro` e `POST /api/v1/auth/login` não exigem Bearer;
+`GET /api/v1/auth/me` exige. As três rotas só operam no modo local habilitado.
+Contrato completo: [autenticacao-local.md](autenticacao-local.md).
+
 Com `AUTH_ENABLED=true`, as rotas `/api/v1/` exigem access token Bearer JWT RS256.
 Ausência/falha retorna 401 em Problem Details com `WWW-Authenticate: Bearer`;
 recurso de outro dono mantém 404. Domínio, CRUD e formato dos dados não mudam.

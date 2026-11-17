@@ -198,7 +198,8 @@ if (mode === '--disabled') {
     const { data: api } = await request('/q/openapi?format=json');
     const crudPaths = [root, `${root}/{listaId}`, `${root}/{listaId}/itens`, `${root}/{listaId}/itens/{itemId}`];
     const barcodePath = '/api/v1/codigos-barras/{codigo}';
-    assert.deepEqual(Object.keys(api.paths).sort(), [...crudPaths, barcodePath].sort());
+    assert.deepEqual(Object.keys(api.paths).sort(), [...crudPaths, barcodePath,
+      '/api/v1/auth/cadastro', '/api/v1/auth/login', '/api/v1/auth/me'].sort());
     assert.equal(api.components.securitySchemes.bearerAuth.scheme, 'bearer');
     const resolve = schema => schema?.$ref ? api.components.schemas[schema.$ref.split('/').at(-1)] : schema;
     let operations = 0;

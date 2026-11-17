@@ -2,6 +2,10 @@
 .env
 **/.env*
 **/.certs
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
 .idea
 **/target
 services/build

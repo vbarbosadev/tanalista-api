@@ -89,3 +89,18 @@ nem consulta banco externo. Cabeçalho Authorization é ocultado nos logs de tes
 Não substitui PostgreSQL/Testcontainers nem comprova login, JWKS remoto,
 rotação ou integração com fornecedor. Ver [autenticacao.md](autenticacao.md)
 para o contrato, configuração e validação ainda necessária antes do deploy.
+
+## Cadastro e login locais — #64
+
+`UsuariosTest` cobre hash/salt Argon2id, normalização, login e falhas genéricas.
+`LimiteAutenticacaoTest` usa relógio controlado para limites por conta/IP,
+expiração da janela e concorrência de hash.
+`LocalAuthHttpTest` cobre cadastro, emissão/verificação JWT, perfil, CRUD e
+429 com cabeçalhos de proxy arbitrários, com repositórios em memória.
+
+`CadastroLoginPostgresTest` usa PostgreSQL descartável e RSA efêmero para
+cadastro concorrente (201/409), persistência de hash, login, perfil e CRUD
+isolado entre usuários. O recurso tem lifecycle próprio, sem Neon real.
+A suíte existente confere Flyway V1 a V4. Os testes em memória não substituem
+essa integração. ArchUnit também proíbe Bouncy Castle no domínio/aplicação.
+Comandos e limites operacionais: [autenticacao-local.md](autenticacao-local.md).

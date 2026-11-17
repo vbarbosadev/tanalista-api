@@ -57,7 +57,7 @@ class CrudPostgresTest {
                          "SELECT version FROM flyway_schema_history WHERE success ORDER BY installed_rank")) {
                 var versoes = new ArrayList<String>();
                 while (rows.next()) versoes.add(rows.getString(1));
-                assertEquals(List.of("1", "2", "3"), versoes);
+                assertEquals(List.of("1", "2", "3", "4"), versoes);
             }
         }
         given().get("/q/health/ready").then().statusCode(200);
