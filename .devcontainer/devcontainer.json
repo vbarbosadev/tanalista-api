@@ -2,8 +2,9 @@
   "name": "TáNaLista — Java, Go, Buf e Docker",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {
-      "moby": true
+    "ghcr.io/devcontainers/features/docker-in-docker:4.1.3": {
+      "moby": true,
+      "iptablesSwitchAtRuntime": true
     },
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
