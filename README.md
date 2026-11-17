@@ -41,6 +41,11 @@ cancelamento. A comunicação interna usa o contrato gRPC v1 da Sprint 2.
 
 ## Execução local
 
+**Ambiente da disciplina:** [GitHub Codespaces](docs/codespaces.md), com
+devcontainer, Docker e toolchain configurados. Abra a branch `develop`,
+aguarde o setup e mantenha a porta 8081 privada: a identidade de demonstração
+não é autenticação pública. O mesmo Compose também roda numa máquina com Docker.
+
 Para rodar o sistema: **Docker com Compose v2**. Não é necessário instalar Java,
 Go, Buf ou Maven na máquina; os Dockerfiles geram/compilam dentro dos containers.
 O build inicial requer acesso aos registros de imagens e dependências.
