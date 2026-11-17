@@ -150,3 +150,17 @@ O README inclui roteiro e registro de tempo para teste por outra pessoa;
 preparar instruções não significa que esse teste já foi realizado.
 O responsável ainda não recebeu confirmação docente sobre GHCR e dispensa
 de API pública/Neon; #63/#65 continuam pendentes nesses pontos.
+
+## Preparação da publicação GHCR — issue #63
+
+A IA preparou publicação das imagens Java/Go somente após push em `main` e
+sucesso dos dois jobs CI existentes, sem login/publicação em PRs e sem PAT.
+O token de pacotes é restrito ao job; tags usam SHA e o resumo registra digest.
+A configuração cobre a interpretação mais abrangente da divergência T9/STACK,
+sem fabricar resposta docente. O primeiro push, existência dos pacotes,
+visibilidade e pull externo precisam de evidência após a release em `main`.
+
+O responsável também confirmou nesta conversa que Neon funciona com
+`mise run dev` e que testou a consulta Go no Codespaces. São relatos manuais,
+não execução desta IA contra banco ou provedor real. Não foram recebidos
+hash/logs desse teste nem credenciais. A implantação pública continua pendente.
