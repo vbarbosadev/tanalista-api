@@ -26,8 +26,11 @@ essas linguagens ou Docker na máquina pessoal.
 6. Acesse `/q/swagger-ui/`, `/q/openapi` e `/q/health/ready` nessa URL.
    O gRPC é interno na 9090; PostgreSQL é interno na 5432. Não publicar essas portas.
 
-Se o devcontainer já existia antes desta configuração, use **Codespaces:
-Rebuild Container**. O setup não inicia a aplicação automaticamente nem apaga
+Se `.devcontainer/verify.sh` não existir num Codespace antigo, confira
+`git status` e atualize `develop` com `git pull --ff-only origin develop`.
+Não descarte alterações locais se o Git recusar a atualização.
+Depois use **Codespaces: Rebuild Container** na paleta de comandos.
+O setup não inicia a aplicação automaticamente nem apaga
 dados. Para encerrar apenas a aplicação, `docker compose down` preserva volume.
 Ao terminar o trabalho, pare o Codespace para limitar uso de quota.
 
@@ -72,4 +75,14 @@ O workflow valida o mesmo devcontainer por `devcontainers/ci`, sem criar um
 Codespace na conta do usuário. Resultado verde comprova build e execução desse
 ambiente no Actions, **não** acesso anônimo à URL, teste manual de navegador,
 quota disponível ou criação de Codespace na conta.
-Registrar separadamente a execução real no Codespaces antes da apresentação.
+
+Em 17/11/2026, o responsável registrou na
+[#79](https://github.com/vbarbosadev/tanalista-api/issues/79#issuecomment-6945674491)
+que executou os testes no workspace de `develop`, sem erros. Essa é uma
+confirmação manual do responsável, separada da
+[execução automatizada do devcontainer](https://github.com/vbarbosadev/tanalista-api/actions/runs/44060057230).
+O comentário não contém hash, logs ou capturas; não atribuir a ele um commit
+exato nem resultados individuais além dos relatados.
+
+A decisão do ambiente e seus limites estão na
+[ADR 0002](decisoes/0002-ambiente-codespaces.md).
