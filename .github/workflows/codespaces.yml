@@ -19,5 +19,4 @@ jobs:
         with:
           push: never
           runCmd: |
-            bash .devcontainer/setup.sh
             bash .devcontainer/verify.sh

@@ -17,8 +17,11 @@ curl --fail --location --retry 3 "$release/$asset" -o "$tmp/$asset"
 curl --fail --location --retry 3 "$release/SHASUMS256.txt" -o "$tmp/SHASUMS256.txt"
 (
   cd "$tmp"
-  grep -E "[ *]${asset}$" SHASUMS256.txt > selected.sha256
-  test -s selected.sha256
+  awk -v asset="$asset" '$2 == asset || $2 == "./" asset { print }' SHASUMS256.txt > selected.sha256
+  if [ "$(wc -l < selected.sha256)" -ne 1 ]; then
+    echo "Esperado exatamente um checksum SHA256 para $asset" >&2
+    exit 1
+  fi
   sha256sum --check selected.sha256
 )
 tar -xzf "$tmp/$asset" -C "$tmp"
