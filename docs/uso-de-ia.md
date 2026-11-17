@@ -164,3 +164,13 @@ O responsável também confirmou nesta conversa que Neon funciona com
 `mise run dev` e que testou a consulta Go no Codespaces. São relatos manuais,
 não execução desta IA contra banco ou provedor real. Não foram recebidos
 hash/logs desse teste nem credenciais. A implantação pública continua pendente.
+
+## Preparação de identidade JWT genérica — issue #64
+
+O responsável escolheu explicitamente preparar OIDC genérico sem selecionar
+fornecedor. A IA implementou recurso de validação de access tokens JWT RS256
+com SmallRye, configuração issuer/audience/JWKS, identidade por par `iss`/`sub`
+e testes RSA efêmeros, sem chaves reais, login ou alteração no mobile.
+Documentação distingue JWT resource server de implementação completa OIDC.
+Testes HTTP usam repositórios em memória; não alegam validação de provedor real,
+rotação remota, Neon ou implantação pública.
