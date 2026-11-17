@@ -133,3 +133,10 @@ no Actions. Não criou Codespace na conta do usuário, não consumiu sua quota d
 Codespaces, não publicou portas e não escolheu provedor de identidade.
 A orientação foi registrada nas #64/#65, mantendo a distinção entre ambiente
 de desenvolvimento e os requisitos de implantação pública da rubrica.
+
+Em 17/11/2026, o responsável confirmou testes sem erros no workspace de
+`develop` em comentário na #79. A IA conferiu esse registro e documentou a
+evidência como relato manual, sem inventar hash, logs ou captura.
+A ADR 0002 registra a decisão já adotada de Codespaces; autenticação,
+implantação pública, licença, teste por terceiro, daily e vídeo não foram
+declarados concluídos.
