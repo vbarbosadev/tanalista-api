@@ -66,7 +66,8 @@ class CadastroLoginPostgresTest {
             given().auth().oauth2(outro).get(path + "/itens/" + item).then().statusCode(404);
             given().auth().oauth2(outro).delete(path).then().statusCode(404);
             given().auth().oauth2(login(a)).get(path).then().statusCode(200);
-            given().auth().oauth2(token).get("/api/v1/codigos-barras/3017624010701")
+            // Controlled gRPC UNAVAILABLE; a physically stopped Go is covered by Compose.
+            given().auth().oauth2(token).get("/api/v1/codigos-barras/012345678905")
                     .then().statusCode(503);
         } finally {
             given().auth().oauth2(token).delete(path).then().statusCode(204);
