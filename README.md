@@ -82,7 +82,10 @@ O modo de identidade de desenvolvimento **não autentica usuários**. Usa
 `DEV_USER_ID` no servidor e só atende ao CRUD quando habilitado; é padrão no
 perfil `dev`, mas fora dele exige `DEV_IDENTITY_ENABLED=true`. Use somente em
 ambiente confiável; Compose publica portas apenas no loopback. Não habilite em
-produção pública. Autenticação real será uma entrega posterior.
+produção pública. A preparação de
+[Bearer JWT compatível com provedores OIDC](docs/autenticacao.md) é separada:
+`AUTH_ENABLED=true` exige `DEV_IDENTITY_ENABLED=false`, issuer, audiência e JWKS
+HTTPS. A escolha/configuração do provedor e o teste público continuam pendentes.
 
 Para testes: `mise run test-api` e `mise run test-go`.
 Detalhamento das suítes e limites: [docs/testes.md](docs/testes.md).
@@ -136,6 +139,8 @@ produção, sempre por pull request vindo de `develop` e com a CI verde.
 - [ADR 0001: serviço Go de consulta por código de barras](docs/decisoes/0001-servico-go-codigo-de-barras.md)
 - [ADR 0002: ambiente no GitHub Codespaces](docs/decisoes/0002-ambiente-codespaces.md)
 - [Publicação de imagens no GHCR após integração em main](docs/imagens.md)
+- [Autenticação Bearer JWT e limites da integração OIDC](docs/autenticacao.md)
+- [ADR 0003: identidade externa e autorização por dono](docs/decisoes/0003-identidade-jwt.md)
 - [Evidências, validação e fechamento da Sprint 1](docs/entrega-sprint1.md)
 - [Registro de uso de IA como auxílio](docs/uso-de-ia.md)
 - [Backlog no GitHub Projects](https://github.com/users/vbarbosadev/projects/3)

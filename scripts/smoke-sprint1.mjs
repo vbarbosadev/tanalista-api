@@ -199,13 +199,14 @@ if (mode === '--disabled') {
     const crudPaths = [root, `${root}/{listaId}`, `${root}/{listaId}/itens`, `${root}/{listaId}/itens/{itemId}`];
     const barcodePath = '/api/v1/codigos-barras/{codigo}';
     assert.deepEqual(Object.keys(api.paths).sort(), [...crudPaths, barcodePath].sort());
+    assert.equal(api.components.securitySchemes.bearerAuth.scheme, 'bearer');
     const resolve = schema => schema?.$ref ? api.components.schemas[schema.$ref.split('/').at(-1)] : schema;
     let operations = 0;
     for (const [p, methods] of Object.entries(api.paths)) {
       if (!crudPaths.includes(p)) continue;
       for (const [method, op] of Object.entries(methods)) {
         operations++;
-        for (const code of ['400', '404', '409', '422', '500', '503']) {
+        for (const code of ['400', '401', '404', '409', '422', '500', '503']) {
           assert.ok(op.responses[code].content['application/problem+json']);
         }
         for (const param of op.parameters ?? []) {
@@ -221,7 +222,7 @@ if (mode === '--disabled') {
     }
     assert.equal(operations, 10);
     const lookup = api.paths[barcodePath].get;
-    for (const code of ['404', '422', '500', '503', '504']) {
+    for (const code of ['401', '404', '422', '500', '503', '504']) {
       assert.ok(lookup.responses[code].content['application/problem+json']);
     }
     const barcodeParam = lookup.parameters.find(p => p.in === 'path' && p.name === 'codigo');

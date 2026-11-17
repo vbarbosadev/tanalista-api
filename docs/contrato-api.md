@@ -6,8 +6,8 @@ código em `/q/openapi`; Swagger UI em `/q/swagger-ui/`, inclusive no JAR empaco
 Usuários, acessos e compras permanecem planejamento futuro.
 
 Atualização da Sprint 2: a consulta `GET /api/v1/codigos-barras/{codigo}` passa
-a usar o contrato gRPC v1. É somente leitura, protegida pelo mesmo modo local
-de identidade (não autenticação pública), e não cria Item. A implementação do
+a usar o contrato gRPC v1. É somente leitura, protegida pelo mesmo modo de
+identidade do CRUD (Bearer ou demonstração privada), e não cria Item. A implementação do
 CRUD permanece independente do Go.
 
 ## Recorte implementado na Sprint 1
@@ -25,8 +25,9 @@ CRUD permanece independente do Go.
 | PATCH | `/listas/{listaId}/itens/{itemId}` | 200, item alterado |
 | DELETE | `/listas/{listaId}/itens/{itemId}` | 204, sem corpo |
 
-- Identidade fixa configurada no servidor, sem receber dono por parâmetro ou
-  cabeçalho. `DEV_IDENTITY_ENABLED` precisa estar habilitado; caso contrário, 503.
+- No modo privado legado, identidade fixa configurada no servidor, sem receber
+  dono por parâmetro ou cabeçalho. Com auth desligada, `DEV_IDENTITY_ENABLED`
+  precisa estar habilitado; caso contrário, 503.
   Isto **não é autenticação**. Listas de outro dono e seus itens retornam 404.
 - `page=0`, `size=20`, máximo 100; offset máximo 2147483647; paginação no SQL.
   Resposta: `items`, `page`, `size`, `total`. Página além do fim retorna `items: []`.
@@ -212,3 +213,13 @@ Operações originadas na fila offline usam `Idempotency-Key`. A mesma chave, us
 operação retornam a resposta original sem repetir efeitos. Recursos mutáveis expõem uma
 versão; uma escrita baseada em versão antiga resulta em `409 Conflict`. O fechamento da
 Compra é transacional e impede novos registros após o estado `FINALIZADA`.
+
+## Autenticação adicionada na Sprint 2
+
+Com `AUTH_ENABLED=true`, as rotas `/api/v1/` exigem access token Bearer JWT RS256.
+Ausência/falha retorna 401 em Problem Details com `WWW-Authenticate: Bearer`;
+recurso de outro dono mantém 404. Domínio, CRUD e formato dos dados não mudam.
+O esquema `bearerAuth` e respostas 401 estão no OpenAPI gerado das anotações.
+O modo privado de demonstração ainda pode usar identidade fixa com auth
+desligada, sem equivaler a autenticação pública.
+Configuração e impacto mobile: [autenticacao.md](autenticacao.md).

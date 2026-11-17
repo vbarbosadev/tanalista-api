@@ -8,14 +8,18 @@ import org.eclipse.microprofile.openapi.annotations.media.*;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.*;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import tanalista.config.IdentidadeDesenvolvimento;
+import tanalista.config.IdentidadeAtual;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import tanalista.dominio.ConsultaCodigoBarras;
 import tanalista.dominio.MetadadosProduto;
 
 @Path("/api/v1/codigos-barras")
+@Blocking
+@SecurityRequirement(name = "bearerAuth")
 @Produces(MediaType.APPLICATION_JSON)
 @Tag(name = "Código de barras", description = "Consulta opcional; não persiste catálogo nem cria Item.")
 @APIResponses({
+    @APIResponse(responseCode = "401", description = "Bearer ausente ou inválido quando autenticação está habilitada", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = Problem.class))),
     @APIResponse(responseCode = "404", description = "Produto não encontrado", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = Problem.class))),
     @APIResponse(responseCode = "422", description = "EAN/UPC inválido", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = Problem.class))),
     @APIResponse(responseCode = "500", description = "Falha interna", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = Problem.class))),
@@ -24,9 +28,9 @@ import tanalista.dominio.MetadadosProduto;
 })
 public class CodigoBarrasResource {
     private final ConsultaCodigoBarras consulta;
-    private final IdentidadeDesenvolvimento identidade;
+    private final IdentidadeAtual identidade;
 
-    public CodigoBarrasResource(ConsultaCodigoBarras consulta, IdentidadeDesenvolvimento identidade) {
+    public CodigoBarrasResource(ConsultaCodigoBarras consulta, IdentidadeAtual identidade) {
         this.consulta = consulta;
         this.identidade = identidade;
     }

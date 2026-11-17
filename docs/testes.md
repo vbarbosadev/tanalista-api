@@ -72,3 +72,20 @@ migrações, isolamento e persistência após recriar API.
 
 A máquina de desenvolvimento desta etapa não tem Docker instalado. A execução
 de Compose acima é evidência do CI, não execução local de containers.
+
+## Autenticação JWT genérica — #64
+
+`ConfiguracaoAutenticacaoTest` testa guardas de configuração e incompatibilidade
+com a identidade fixa; `IdentificadorExternoTest` testa estabilidade e separação
+de UUID por issuer/subject. São JUnit puros.
+
+`AutenticacaoHttpTest` inicia Quarkus com auth habilitada, chaves RSA geradas
+temporariamente e repositórios em memória selecionados somente nesse perfil.
+Testa HTTP real, assinatura/algoritmo, issuer/aud, claims obrigatórias,
+expiração/nbf, ausência de credencial, desafio Bearer, Problem Details e CRUD
+com isolamento entre dois usuários. O perfil não herda o servidor gRPC global
+nem consulta banco externo. Cabeçalho Authorization é ocultado nos logs de teste.
+
+Não substitui PostgreSQL/Testcontainers nem comprova login, JWKS remoto,
+rotação ou integração com fornecedor. Ver [autenticacao.md](autenticacao.md)
+para o contrato, configuração e validação ainda necessária antes do deploy.

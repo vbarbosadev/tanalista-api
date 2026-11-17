@@ -5,7 +5,9 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import tanalista.aplicacao.Listas;
-import tanalista.config.IdentidadeDesenvolvimento;
+import tanalista.config.IdentidadeAtual;
+import io.smallrye.common.annotation.Blocking;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import tanalista.dominio.ErroDominio;
 import tanalista.dominio.Lista;
 import tanalista.dominio.Pagina;
@@ -20,10 +22,13 @@ import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 
 @Path("/api/v1/listas")
+@Blocking
+@SecurityRequirement(name = "bearerAuth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Tag(name = "Listas", description = "CRUD com identidade de desenvolvimento do servidor; não implementa autenticação.")
+@Tag(name = "Listas", description = "CRUD do usuário autenticado; identidade fixa somente em demonstração privada.")
 @APIResponses({
+    @APIResponse(responseCode = "401", description = "Bearer ausente ou inválido quando autenticação está habilitada", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = Problem.class))),
     @APIResponse(responseCode = "400", description = "JSON, tipo ou parâmetro malformado", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = Problem.class))),
     @APIResponse(responseCode = "404", description = "Recurso inexistente ou não visível", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = Problem.class))),
     @APIResponse(responseCode = "405", description = "Método não permitido", content = @Content(mediaType = "application/problem+json", schema = @Schema(implementation = Problem.class))),
@@ -36,9 +41,9 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 })
 public class ListaResource {
     private final Listas listas;
-    private final IdentidadeDesenvolvimento identidade;
+    private final IdentidadeAtual identidade;
 
-    public ListaResource(Listas listas, IdentidadeDesenvolvimento identidade) {
+    public ListaResource(Listas listas, IdentidadeAtual identidade) {
         this.listas = listas;
         this.identidade = identidade;
     }

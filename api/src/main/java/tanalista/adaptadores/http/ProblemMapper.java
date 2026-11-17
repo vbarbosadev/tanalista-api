@@ -52,6 +52,7 @@ public class ProblemMapper implements ExceptionMapper<Exception> {
             if (erro instanceof NotFoundException && erro.getCause() instanceof IllegalArgumentException) status = 400;
             detalhe = switch (status) {
                 case 400 -> "JSON ou parâmetro inválido.";
+                case 401 -> "Credencial Bearer ausente ou inválida.";
                 case 404 -> "Recurso não encontrado.";
                 case 405 -> "Método HTTP não permitido.";
                 case 406 -> "Formato de resposta não aceito.";
@@ -68,7 +69,7 @@ public class ProblemMapper implements ExceptionMapper<Exception> {
         if (erro instanceof WebApplicationException http) {
             // Preserva cabeçalhos de protocolo, nunca entidades de erro de terceiros.
             var builder = Response.fromResponse(resposta);
-            for (String nome : new String[]{"Allow", "Retry-After"}) {
+            for (String nome : new String[]{"Allow", "Retry-After", "WWW-Authenticate"}) {
                 var valor = http.getResponse().getHeaderString(nome);
                 if (valor != null) builder.header(nome, valor);
             }
